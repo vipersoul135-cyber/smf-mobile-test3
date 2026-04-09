@@ -203,6 +203,74 @@
                 width: 100%;
             }
         }
+
+        /* ===== INTERACTIVE FOOTER ===== */
+        .interactive-footer {
+            background: #111;
+            color: #888;
+            padding: 25px 20px 40px;
+            /* More bottom padding for mobile */
+            text-align: center;
+            font-size: 13px;
+            border-top: 1px solid #222;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            position: relative;
+            z-index: 9999;
+        }
+
+        .interactive-footer p {
+            margin: 0;
+        }
+
+        .dev-link {
+            color: #ff9900;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+        .dev-link:hover {
+            color: white;
+        }
+
+        .dev-info {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #1a222c;
+            padding: 0 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .dev-info.active {
+            max-height: 100px;
+            opacity: 1;
+            padding: 15px 20px;
+            margin-top: 10px;
+            border: 1px solid #333;
+        }
+
+        .dev-info a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .dev-info a:hover {
+            color: #ff9900;
+        }
     </style>
 </head>
 
@@ -243,21 +311,23 @@
                 <h4>📍 Location</h4>
                 <p>SRI BABU POWER LIFTING ACADEMY</p>
                 <p>Visit us to see our equipment and shop supplements!</p>
-                <div style="margin-top: 15px; padding: 10px; background: white; width: max-content; border-radius: 8px;">
+                <div
+                    style="margin-top: 15px; padding: 10px; background: white; width: max-content; border-radius: 8px;">
                     <!-- QR Code generated dynamically pointing to a Google Maps search for the gym -->
-                    <img src="img/LOC QR/SMF.png" alt="Location QR Code" style="display: block; width: 120px; height: 120px;">
+                    <img src="img/LOC QR/SMF.png" alt="Location QR Code"
+                        style="display: block; width: 120px; height: 120px;">
                 </div>
                 <p style="font-size: 12px; margin-top: 8px; color: #ff9900;">Scan to open in Maps</p>
             </div>
 
             <div class="info-card">
                 <h4>📞 Phone</h4>
-                <a href="tel:+919876543210">+91 98765 43210</a>
+                <a href="tel:+919876543210">+91 8883066269 </a>
             </div>
 
             <div class="info-card">
                 <h4>✉️ Email</h4>
-                <a href="mailto:contact@smfgym.com">contact@smfgym.com</a>
+                <a href="mailto:contact@smfgym.com">srimuralifitnss501@gmail.com</a>
             </div>
 
             <div class="info-card">
@@ -272,6 +342,20 @@
         </div>
     </div>
 
+    <div class="interactive-footer">
+        <p>© 2024 SMF Gym & Supplements. All rights reserved.</p>
+        <p>Developed by <span class="dev-link" onclick="toggleDevInfo()">Vignesh</span></p>
+        <div id="dev-info" class="dev-info">
+            <p>📧 Email: <a href="mailto:srimuralifitnss501@gmail.com">srimuralifitnss501@gmail.com</a></p>
+            <p>📱 Mobile: <a href="tel:+917339563621">+91 73395 63621</a></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDevInfo() {
+            document.getElementById("dev-info").classList.toggle("active");
+        }
+    </script>
 </body>
 
 </html>
