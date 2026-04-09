@@ -29,9 +29,23 @@
         }
 
         /* Responsive Grid */
-        @media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
 
         /* List View Styles */
         .grid.list-view {
@@ -76,7 +90,7 @@
             background: #fff;
             margin: 10px 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .control-group {
@@ -117,7 +131,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             display: none;
             z-index: 1000;
             backdrop-filter: blur(3px);
@@ -130,7 +144,7 @@
             width: 300px;
             height: 100%;
             background: #fff;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
             z-index: 1001;
             transition: right 0.3s ease;
             display: flex;
@@ -369,7 +383,8 @@
                 <div class="filter-option" onclick="applySort('high-low', this)">Price: High to Low</div>
                 <div class="filter-option" onclick="applySort('name', this)">Name: A to Z</div>
             </div>
-            <button onclick="closeDrawer()" style="width: 100%; margin-top: 20px; background: #232f3e; color: white;">Apply</button>
+            <button onclick="closeDrawer()"
+                style="width: 100%; margin-top: 20px; background: #232f3e; color: white;">Apply</button>
         </div>
     </div>
 
@@ -387,7 +402,8 @@
             </div>
         </div>
         <div class="product-card">
-            <img src="https://coachformula.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-21-at-10.57.33-AM-600x677.jpeg" alt="Product 2">
+            <img src="https://coachformula.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-21-at-10.57.33-AM-600x677.jpeg"
+                alt="Product 2">
             <div class="product-info">
                 <h4>Pre 2</h4>
                 <p class="price">₹1100</p>
@@ -417,7 +433,8 @@
             </div>
         </div>
         <div class="product-card">
-            <img src="https://coachformula.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-21-at-10.57.33-AM-600x677.jpeg" alt="Product 5">
+            <img src="https://coachformula.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-21-at-10.57.33-AM-600x677.jpeg"
+                alt="Product 5">
             <div class="product-info">
                 <h4>Pre 5</h4>
                 <p class="price">₹1250</p>
@@ -427,7 +444,8 @@
             </div>
         </div>
         <div class="product-card">
-            <img src="https://coachformula.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-21-at-10.57.34-AM-600x677.jpeg" alt="Product 6">
+            <img src="https://coachformula.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-21-at-10.57.34-AM-600x677.jpeg"
+                alt="Product 6">
             <div class="product-info">
                 <h4>Pre 6</h4>
                 <p class="price">₹1300</p>
@@ -492,13 +510,13 @@
 
             const whatsappNumber = "917339563621";
             let cart = [];
-            
+
             // View Toggle Logic
             function toggleView() {
                 const grid = document.querySelector('.grid');
                 const btn = document.getElementById('viewToggleBtn');
                 grid.classList.toggle('list-view');
-                
+
                 if (grid.classList.contains('list-view')) {
                     btn.innerHTML = '<i data-lucide="grid"></i> Grid View';
                 } else {
