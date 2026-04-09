@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCAA Products</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #757575;
+            color: #111;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 28px;
+            color: #111;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Grid */
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* List View Styles */
+        .grid.list-view {
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .grid.list-view .product-card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .grid.list-view .product-card img {
+            width: 180px;
+            height: 180px;
+            margin-right: 25px;
+            margin-bottom: 0;
+        }
+
+        .grid.list-view .product-card .product-info {
+            flex: 1;
+        }
+
+        .grid.list-view .product-card button {
+            width: auto;
+            min-width: 120px;
+            margin-right: 10px;
+        }
+
+        /* Controls Bar */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: #fff;
+            margin: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            color: #333;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+            width: auto;
+        }
+
+        .icon-btn:hover {
+            background: #eee;
+            border-color: #bbb;
+        }
+
+        .icon-btn i {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Filter Drawer */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+            backdrop-filter: blur(3px);
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drawer.active {
+            right: 0;
+        }
+
+        .drawer-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drawer-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group h4 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .filter-option {
+            display: block;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .filter-option:hover {
+            background: #f0f0f0;
+            border-color: #ff9900;
+        }
+
+        .filter-option.active {
+            background: #fff7eb;
+            border-color: #ff9900;
+            color: #ff9900;
+            font-weight: bold;
+        }
+
+        .product-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h4 {
+            font-size: 18px;
+            margin: 10px 0 5px;
+            color: #111;
+        }
+
+        .price {
+            color: #B12704;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin: 5px 0;
+            background: #f0c14b;
+            color: #111;
+            border: 1px solid #a88734;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 90%;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #e2b33c;
+        }
+
+        .cart-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #f0c14b;
+            color: #111;
+            padding: 14px;
+            border-radius: 50%;
+            font-size: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .cart-box {
+            position: fixed;
+            bottom: 80px;
+            right: 15px;
+            width: 280px;
+            background: #fff;
+            color: #111;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+        }
+
+        .cart-box h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+
+
+        /* Auto-injected Navbar & Back-btn */
+        .navbar {
+            background: #232f3e !important;
+            color: white !important;
+            width: 100% !important;
+            padding: 15px 20px !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 99 !important;
+            margin: 0 !important;
+        }
+
+        .navbar h2 {
+            margin: 0 !important;
+            font-size: 22px !important;
+            letter-spacing: 1px !important;
+            text-transform: uppercase !important;
+            color: white !important;
+            text-align: left !important;
+            padding: 0 !important;
+        }
+
+        .back-btn {
+            color: #ff9900 !important;
+            text-decoration: none !important;
+            font-size: 24px !important;
+            font-weight: bold !important;
+            margin-right: 15px !important;
+            transition: transform 0.3s !important;
+            display: inline-block !important;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.2) !important;
+            color: white !important;
+        }
+
+        /* --- Full Screen Modal Styles --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #333;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #ff9900;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="products.html" class="back-btn">⬅</a>
+        <h2>SMF SUPPLEMENTS</h2>
+    </div>
+
+
+    <h2>BCAA Products</h2>
+
+    <div class="controls-bar">
+        <div class="control-group">
+            <span id="productCount" style="font-weight: bold; color: #555;">10 Products found</span>
+        </div>
+        <div class="control-group">
+            <button class="icon-btn" onclick="openDrawer()">
+                <i data-lucide="sliders-horizontal"></i> Filter
+            </button>
+            <button class="icon-btn" id="viewToggleBtn" onclick="toggleView()">
+                <i data-lucide="list"></i> List View
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+    <div class="drawer" id="filterDrawer">
+        <div class="drawer-header">
+            <h3>Filters & Sorting</h3>
+            <span style="cursor: pointer; font-size: 24px;" onclick="closeDrawer()">&times;</span>
+        </div>
+        <div class="drawer-content">
+            <div class="filter-group">
+                <h4>Sort By</h4>
+                <div class="filter-option" onclick="applySort('low-high', this)">Price: Low to High</div>
+                <div class="filter-option" onclick="applySort('high-low', this)">Price: High to Low</div>
+                <div class="filter-option" onclick="applySort('name', this)">Name: A to Z</div>
+            </div>
+            <button onclick="closeDrawer()"
+                style="width: 100%; margin-top: 20px; background: #232f3e; color: white;">Apply</button>
+        </div>
+    </div>
+
+    <div class="grid">
+        <!-- Sample Products (Add all 20 similarly) -->
+        <div class="product-card"
+            onclick="openModal('Pre 1', 'img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp', 1050, 'Ultra-pure BCAA blend to support muscle recovery and hydration during workouts.')">
+            <img src="img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp" alt="Pre 1">
+            <div class="product-info">
+                <h4>Pre 1</h4>
+                <p class="price">₹1050</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 1', 1050)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 1', 1050)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 2', 'img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp', 1100, 'Optimum ratio of BCAAs to preserve lean muscle mass and boost endurance.')">
+            <img src="img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp" alt="Pre 2">
+            <div class="product-info">
+                <h4>Pre 2</h4>
+                <p class="price">₹1100</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 2', 1100)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 2', 1100)">Cart</button>
+            </div>
+        </div>
+        <!-- Repeat product cards for Pre 3 to Pre 20 -->
+    </div>
+
+    <!-- CART -->
+    <div class="cart-btn" onclick="toggleCart()">🛒</div>
+    <div class="cart-box" id="cartBox">
+        <h3>Cart</h3>
+        <div id="cartItems"></div>
+        <h4>Total: ₹<span id="total">0</span></h4>
+        <button onclick="sendCartWhatsApp()">Order Cart</button>
+    </div>
+
+
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+
+        const whatsappNumber = "917339563621";
+        let cart = [];
+
+        // View Toggle Logic
+        function toggleView() {
+            const grid = document.querySelector('.grid');
+            const btn = document.getElementById('viewToggleBtn');
+            grid.classList.toggle('list-view');
+
+            if (grid.classList.contains('list-view')) {
+                btn.innerHTML = '<i data-lucide="grid"></i> Grid View';
+            } else {
+                btn.innerHTML = '<i data-lucide="list"></i> List View';
+            }
+            lucide.createIcons();
+        }
+
+        // Drawer Logic
+        function openDrawer() {
+            document.getElementById('filterDrawer').classList.add('active');
+            document.getElementById('drawerOverlay').style.display = 'block';
+        }
+
+        function closeDrawer() {
+            document.getElementById('filterDrawer').classList.remove('active');
+            document.getElementById('drawerOverlay').style.display = 'none';
+        }
+
+        // Sorting Logic
+        function applySort(type, el) {
+            // Update active state
+            document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+            if (el) el.classList.add('active');
+
+            const grid = document.querySelector('.grid');
+            const cards = Array.from(grid.querySelectorAll('.product-card'));
+
+            cards.sort((a, b) => {
+                const priceA = parseInt(a.querySelector('.price').innerText.replace('₹', ''));
+                const priceB = parseInt(b.querySelector('.price').innerText.replace('₹', ''));
+                const nameA = a.querySelector('h4').innerText.toLowerCase();
+                const nameB = b.querySelector('h4').innerText.toLowerCase();
+
+                if (type === 'low-high') return priceA - priceB;
+                if (type === 'high-low') return priceB - priceA;
+                if (type === 'name') return nameA.localeCompare(nameB);
+                return 0;
+            });
+
+            // Clear and re-append
+            cards.forEach(card => grid.appendChild(card));
+            closeDrawer();
+        }
+
+        function orderNow(name, price) {
+            window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Order:\n' + name + '\nPrice: ₹' + price)}`;
+        }
+        function addToCart(name, price) {
+            cart.push({ name, price, total: price });
+            renderCart();
+        }
+        function renderCart() {
+            let total = 0;
+            let html = "";
+            cart.forEach((c, i) => {
+                total += c.total;
+                html += `${c.name} ₹${c.total} <button onclick="removeItem(${i})">X</button><br>`;
+            });
+            document.getElementById("cartItems").innerHTML = html;
+            document.getElementById("total").innerText = total;
+        }
+        function removeItem(i) { cart.splice(i, 1); renderCart(); }
+        function toggleCart() {
+            const box = document.getElementById("cartBox");
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+        function sendCartWhatsApp() {
+            if (cart.length === 0) { alert("Cart empty"); return; }
+            let msg = "Order:\n"; let total = 0;
+            cart.forEach(c => { msg += `${c.name} ₹${c.total}\n`; total += c.total; });
+            msg += `Total: ₹${total}`;
+            window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+        }
+
+        /* --- Modal Logic --- */
+        let currentModalProduct = {};
+
+        function openModal(name, img, price, desc) {
+            currentModalProduct = { name, img, price, desc };
+            document.getElementById("modalImg").src = img;
+            document.getElementById("modalName").innerText = name;
+            document.getElementById("modalPrice").innerText = "Price: ₹" + price;
+            document.getElementById("modalDesc").innerText = desc;
+
+            // Set button actions
+            document.getElementById("modalOrderBtn").onclick = () => orderNow(name, price);
+            document.getElementById("modalCartBtn").onclick = () => addToCart(name, price);
+
+            document.getElementById("productModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("productModal").style.display = "none";
+        }
+
+        // Close on click outside
+        window.onclick = function (event) {
+            let modal = document.getElementById("productModal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modalImg" src="" alt="Product Image">
+            <h2 id="modalName"></h2>
+            <p id="modalPrice" class="price"></p>
+            <p id="modalDesc" class="description" style="margin: 15px 0; color: #555; line-height: 1.6;"></p>
+            <div class="modal-buttons">
+                <button id="modalOrderBtn" style="background: #ff9900; border: none; color: black;">Order Now</button>
+                <button id="modalCartBtn" style="background: #f0c14b; border: 1px solid #a88734; color: #111;">Add to
+                    Cart</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pre</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #808080;
+            color: #111;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 28px;
+            color: #111;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Grid */
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* List View Styles */
+        .grid.list-view {
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .grid.list-view .product-card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .grid.list-view .product-card img {
+            width: 180px;
+            height: 180px;
+            margin-right: 25px;
+            margin-bottom: 0;
+        }
+
+        .grid.list-view .product-card .product-info {
+            flex: 1;
+        }
+
+        .grid.list-view .product-card button {
+            width: auto;
+            min-width: 120px;
+            margin-right: 10px;
+        }
+
+        /* Controls Bar */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: #fff;
+            margin: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            color: #333;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+            width: auto;
+        }
+
+        .icon-btn:hover {
+            background: #eee;
+            border-color: #bbb;
+        }
+
+        .icon-btn i {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Filter Drawer */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+            backdrop-filter: blur(3px);
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drawer.active {
+            right: 0;
+        }
+
+        .drawer-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drawer-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group h4 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .filter-option {
+            display: block;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .filter-option:hover {
+            background: #f0f0f0;
+            border-color: #ff9900;
+        }
+
+        .filter-option.active {
+            background: #fff7eb;
+            border-color: #ff9900;
+            color: #ff9900;
+            font-weight: bold;
+        }
+
+        .product-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h4 {
+            font-size: 18px;
+            margin: 10px 0 5px;
+            color: #111;
+        }
+
+        .price {
+            color: #B12704;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin: 5px 0;
+            background: #f0c14b;
+            color: #111;
+            border: 1px solid #a88734;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 90%;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #e2b33c;
+        }
+
+        .cart-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #f0c14b;
+            color: #111;
+            padding: 14px;
+            border-radius: 50%;
+            font-size: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .cart-box {
+            position: fixed;
+            bottom: 80px;
+            right: 15px;
+            width: 280px;
+            background: #fff;
+            color: #111;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+        }
+
+        .cart-box h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        .cart-box button {
+            background: #f0c14b;
+            border: 1px solid #a88734;
+            color: #111;
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+        }
+
+
+        /* Auto-injected Navbar & Back-btn */
+        .navbar {
+            background: #232f3e !important;
+            color: white !important;
+            width: 100% !important;
+            padding: 15px 20px !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 99 !important;
+            margin: 0 !important;
+        }
+
+        .navbar h2 {
+            margin: 0 !important;
+            font-size: 22px !important;
+            letter-spacing: 1px !important;
+            text-transform: uppercase !important;
+            color: white !important;
+            text-align: left !important;
+            padding: 0 !important;
+        }
+
+        .back-btn {
+            color: #ff9900 !important;
+            text-decoration: none !important;
+            font-size: 24px !important;
+            font-weight: bold !important;
+            margin-right: 15px !important;
+            transition: transform 0.3s !important;
+            display: inline-block !important;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.2) !important;
+            color: white !important;
+        }
+
+        /* --- Full Screen Modal Styles --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #333;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #ff9900;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="products.html" class="back-btn">⬅</a>
+        <h2>SMF SUPPLEMENTS</h2>
+    </div>
+    <h2>Pre-Workout Products</h2>
+
+    <div class="controls-bar">
+        <div class="control-group">
+            <span id="productCount" style="font-weight: bold; color: #555;">20 Products found</span>
+        </div>
+        <div class="control-group">
+            <button class="icon-btn" onclick="openDrawer()">
+                <i data-lucide="sliders-horizontal"></i> Filter
+            </button>
+            <button class="icon-btn" id="viewToggleBtn" onclick="toggleView()">
+                <i data-lucide="list"></i> List View
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+    <div class="drawer" id="filterDrawer">
+        <div class="drawer-header">
+            <h3>Filters & Sorting</h3>
+            <span style="cursor: pointer; font-size: 24px;" onclick="closeDrawer()">&times;</span>
+        </div>
+        <div class="drawer-content">
+            <div class="filter-group">
+                <h4>Sort By</h4>
+                <div class="filter-option" onclick="applySort('low-high', this)">Price: Low to High</div>
+                <div class="filter-option" onclick="applySort('high-low', this)">Price: High to Low</div>
+                <div class="filter-option" onclick="applySort('name', this)">Name: A to Z</div>
+            </div>
+            <button onclick="closeDrawer()" style="width: 100%; margin-top: 20px; background: #232f3e; color: white;">Apply</button>
+        </div>
+    </div>
+
+    <div class="grid">
+        <!-- 20 Product Cards -->
+        <div class="product-card"
+            onclick="openModal('Pre 1', 'img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg', 1050, 'High-intensity pre-workout formula for explosive energy and focus.')">
+            <img src="img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg" alt="Product 1">
+            <div class="product-info">
+                <h4>Pre 1</h4>
+                <p class="price">₹1050</p>
+                <p class="description">Description for Pre 1</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 1',1050)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 1',1050)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 2', 'img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg', 1100, 'Advanced pre-workout blend to boost nitric oxide and blood flow.')">
+            <img src="img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg" alt="Product 2">
+            <div class="product-info">
+                <h4>Pre 2</h4>
+                <p class="price">₹1100</p>
+                <p class="description">Description for Pre 2</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 2',1100)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 2',1100)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 3', 'img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg', 1150, 'Maximized performance and endurance for your toughest sessions.')">
+            <img src="img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg" alt="Product 3">
+            <div class="product-info">
+                <h4>Pre 3</h4>
+                <p class="price">₹1150</p>
+                <p class="description">Description for Pre 3</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 3',1150)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 3',1150)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 4', 'img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg', 1200, 'Sharp focus and clean energy with no crash.')">
+            <img src="img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 4">
+            <div class="product-info">
+                <h4>Pre 4</h4>
+                <p class="price">₹1200</p>
+                <p class="description">Description for Pre 4</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 4',1200)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 4',1200)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 5', 'img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg', 1250, 'Ultimate pump formula for skin-splitting vascularity.')">
+            <img src="img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 5">
+            <div class="product-info">
+                <h4>Pre 5</h4>
+                <p class="price">₹1250</p>
+                <p class="description">Description for Pre 5</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 5',1250)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 5',1250)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 6', 'img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg', 1300, 'Potent stimulant blend for extreme training sessions.')">
+            <img src="img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 6">
+            <div class="product-info">
+                <h4>Pre 6</h4>
+                <p class="price">₹1300</p>
+                <p class="description">Description for Pre 6</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 6',1300)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 6',1300)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 7', 'img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg', 1350, 'Clinically dosed ingredients for maximum efficacy.')">
+            <img src="img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 7">
+            <div class="product-info">
+                <h4>Pre 7</h4>
+                <p class="price">₹1350</p>
+                <p class="description">Description for Pre 7</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 7',1350)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 7',1350)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 8', 'img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg', 1400, 'Boost your metabolic rate and energy levels.')">
+            <img src="img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 8">
+            <div class="product-info">
+                <h4>Pre 8</h4>
+                <p class="price">₹1400</p>
+                <p class="description">Description for Pre 8</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 8',1400)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 8',1400)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 9', 'img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg', 1450, 'Enhance cognitive function and mind-muscle connection.')">
+            <img src="img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 9">
+            <div class="product-info">
+                <h4>Pre 9</h4>
+                <p class="price">₹1450</p>
+                <p class="description">Description for Pre 9</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 9',1450)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 9',1450)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 10', 'img/pre/61HtYL9PtoL._AC_UL480_FMwebp_QL65_.webp', 1500, 'Superior endurance and recovery support.')">
+            <img src="img/pre/61HtYL9PtoL._AC_UL480_FMwebp_QL65_.webp" alt="Product 10">
+            <div class="product-info">
+                <h4>Pre 10</h4>
+                <p class="price">₹1500</p>
+                <p class="description">Description for Pre 10</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 10',1500)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 10',1500)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 11', 'img/pre/61dJqj553OL._AC_UL480_FMwebp_QL65_.webp', 1550, 'Gold standard quality for professional athletes.')">
+            <img src="img/pre/61dJqj553OL._AC_UL480_FMwebp_QL65_.webp" alt="Product 11">
+            <div class="product-info">
+                <h4>Pre 11</h4>
+                <p class="price">₹1550</p>
+                <p class="description">Description for Pre 11</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 11',1550)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 11',1550)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 12', 'img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp', 1600, 'Advanced caffeine delivery system for sustained energy.')">
+            <img src="img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp" alt="Product 12">
+            <div class="product-info">
+                <h4>Pre 12</h4>
+                <p class="price">₹1600</p>
+                <p class="description">Description for Pre 12</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 12',1600)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 12',1600)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 13', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 1650, 'Complete pre-workout solution for all fitness levels.')">
+            <img src="img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp" alt="Product 13">
+            <div class="product-info">
+                <h4>Pre 13</h4>
+                <p class="price">₹1650</p>
+                <p class="description">Description for Pre 13</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 13',1650)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 13',1650)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 14', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 1700, 'Optimal electrolyte balance for peak hydration.')">
+            <img src="img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp" alt="Product 14">
+            <div class="product-info">
+                <h4>Pre 14</h4>
+                <p class="price">₹1700</p>
+                <p class="description">Description for Pre 14</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 14',1700)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 14',1700)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 15', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 1750, 'Premium ingredients for muscle endurance and fat loss.')">
+            <img src="img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp" alt="Product 15">
+            <div class="product-info">
+                <h4>Pre 15</h4>
+                <p class="price">₹1750</p>
+                <p class="description">Description for Pre 15</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 15',1750)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 15',1750)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 16', 'img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp', 1800, 'Intense focus and mental clarity for competitive training.')">
+            <img src="img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp" alt="Product 16">
+            <div class="product-info">
+                <h4>Pre 16</h4>
+                <p class="price">₹1800</p>
+                <p class="description">Description for Pre 16</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 16',1800)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 16',1800)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 17', 'img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp', 1850, 'Support ATP production and muscle cell hydration.')">
+            <img src="img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp" alt="Product 17">
+            <div class="product-info">
+                <h4>Pre 17</h4>
+                <p class="price">₹1850</p>
+                <p class="description">Description for Pre 17</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 17',1850)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 17',1850)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 18', 'img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp', 1900, 'Ultimate strength and endurance stack.')">
+            <img src="img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp" alt="Product 18">
+            <div class="product-info">
+                <h4>Pre 18</h4>
+                <p class="price">₹1900</p>
+                <p class="description">Description for Pre 18</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 18',1900)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 18',1900)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 19', 'img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp', 1950, 'Maximized nutrient absorption for better results.')">
+            <img src="img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp" alt="Product 19">
+            <div class="product-info">
+                <h4>Pre 19</h4>
+                <p class="price">₹1950</p>
+                <p class="description">Description for Pre 19</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 19',1950)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 19',1950)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 20', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 2000, 'The most comprehensive pre-workout in the market.')">
+            <img src="img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp" alt="Product 20">
+            <div class="product-info">
+                <h4>Pre 20</h4>
+                <p class="price">₹2000</p>
+                <p class="description">Description for Pre 20</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 20',2000)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 20',2000)">Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART -->
+    <div class="cart-btn" onclick="toggleCart()">🛒</div>
+    <div class="cart-box" id="cartBox">
+        <h3>Cart</h3>
+        <div id="cartItems"></div>
+        <h4>Total: ₹<span id="total">0</span></h4>
+        <button onclick="sendCartWhatsApp()">Order Cart</button>
+    </div>
+
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+
+        const whatsappNumber = "917339563621";
+        let cart = [];
+
+        // View Toggle Logic
+        function toggleView() {
+            const grid = document.querySelector('.grid');
+            const btn = document.getElementById('viewToggleBtn');
+            grid.classList.toggle('list-view');
+            
+            if (grid.classList.contains('list-view')) {
+                btn.innerHTML = '<i data-lucide="grid"></i> Grid View';
+            } else {
+                btn.innerHTML = '<i data-lucide="list"></i> List View';
+            }
+            lucide.createIcons();
+        }
+
+        // Drawer Logic
+        function openDrawer() {
+            document.getElementById('filterDrawer').classList.add('active');
+            document.getElementById('drawerOverlay').style.display = 'block';
+        }
+
+        function closeDrawer() {
+            document.getElementById('filterDrawer').classList.remove('active');
+            document.getElementById('drawerOverlay').style.display = 'none';
+        }
+
+        // Sorting Logic
+        function applySort(type, el) {
+            document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+            if (el) el.classList.add('active');
+
+            const grid = document.querySelector('.grid');
+            const cards = Array.from(grid.querySelectorAll('.product-card'));
+
+            cards.sort((a, b) => {
+                const priceA = parseInt(a.querySelector('.price').innerText.replace('₹', ''));
+                const priceB = parseInt(b.querySelector('.price').innerText.replace('₹', ''));
+                const nameA = a.querySelector('h4').innerText.toLowerCase();
+                const nameB = b.querySelector('h4').innerText.toLowerCase();
+
+                if (type === 'low-high') return priceA - priceB;
+                if (type === 'high-low') return priceB - priceA;
+                if (type === 'name') return nameA.localeCompare(nameB);
+                return 0;
+            });
+
+            cards.forEach(card => grid.appendChild(card));
+            closeDrawer();
+        }
+
+        function orderNow(name, price) { window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Order:\n' + name + '\nPrice: ₹' + price)}`; }
+        function addToCart(name, price) { cart.push({ name, price, total: price }); renderCart(); }
+        function renderCart() { let total = 0; let html = ""; cart.forEach((c, i) => { total += c.total; html += `${c.name} ₹${c.total} <button onclick="removeItem(${i})">X</button><br>`; }); document.getElementById("cartItems").innerHTML = html; document.getElementById("total").innerText = total; }
+        function removeItem(i) { cart.splice(i, 1); renderCart(); }
+        function toggleCart() { let box = document.getElementById("cartBox"); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
+        function sendCartWhatsApp() { if (cart.length === 0) { alert("Cart empty"); return; } let msg = "Order:\n"; let total = 0; cart.forEach(c => { msg += `${c.name} ₹${c.total}\n`; total += c.total; }); msg += `Total: ₹${total}`; window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`; }
+
+        /* --- Modal Logic --- */
+        function openModal(name, img, price, desc) {
+            document.getElementById("modalImg").src = img;
+            document.getElementById("modalName").innerText = name;
+            document.getElementById("modalPrice").innerText = "Price: ₹" + price;
+            document.getElementById("modalDesc").innerText = desc;
+            document.getElementById("modalOrderBtn").onclick = () => orderNow(name, price);
+            document.getElementById("modalCartBtn").onclick = () => addToCart(name, price);
+            document.getElementById("productModal").style.display = "block";
+        }
+        function closeModal() { document.getElementById("productModal").style.display = "none"; }
+        window.onclick = function(event) { let modal = document.getElementById("productModal"); if (event.target == modal) closeModal(); }
+    </script>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modalImg" src="" alt="Product Image">
+            <h2 id="modalName"></h2>
+            <p id="modalPrice" class="price"></p>
+            <p id="modalDesc" class="description" style="margin: 15px 0; color: #555; line-height: 1.6;"></p>
+            <div class="modal-buttons">
+                <button id="modalOrderBtn" style="background: #ff9900; border: none; color: black;">Order Now</button>
+                <button id="modalCartBtn" style="background: #f0c14b; border: 1px solid #a88734; color: #111;">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
