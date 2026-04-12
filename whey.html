@@ -424,7 +424,7 @@
             font-weight: bold;
             color: #333;
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             transition: background 0.2s;
             display: flex;
             justify-content: center;
@@ -447,7 +447,7 @@
         .image-counter {
             position: absolute;
             bottom: 30px;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             color: white;
             padding: 4px 10px;
             border-radius: 12px;
@@ -482,6 +482,66 @@
         .modal-buttons button {
             width: 100%;
             padding: 12px;
+            font-size: 18px;
+        }
+
+        .stars {
+            color: #ff9900;
+            font-size: 14px;
+            margin: 5px 0;
+            letter-spacing: 2px;
+        }
+        .review-count {
+            color: #007185;
+            font-size: 12px;
+            text-decoration: none;
+            margin-left: 5px;
+            letter-spacing: normal;
+        }
+        .modal-reviews-section {
+            margin-top: 25px;
+            text-align: left;
+            border-top: 1px solid #ccc;
+            padding-top: 15px;
+        }
+        .modal-reviews-section h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .review-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .review-user {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .review-user .stars {
+            margin: 0;
+            font-size: 12px;
+        }
+        .review-text {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.4;
+            margin: 0;
+        }
+        .modal-rating-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-rating-header .stars {
             font-size: 18px;
         }
     </style>
@@ -529,7 +589,8 @@
     </div>
     <div class="grid">
         <!-- 10 Product Cards -->
-        <div class="product-card" onclick="openModal('Whey 1', ['img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 1050, 'High quality Whey Protein to support muscle growth and recovery.')">
+        <div class="product-card"
+            onclick="openModal('Whey 1', ['img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 1050, 'High quality Whey Protein to support muscle growth and recovery.')">
             <img src="img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 1">
             <div class="product-info">
                 <h4>Whey 1</h4>
@@ -540,7 +601,8 @@
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Whey 2', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp'], 1100, 'Premium Whey isolate for faster absorption and lean muscle.')">
+        <div class="product-card"
+            onclick="openModal('Whey 2', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp'], 1100, 'Premium Whey isolate for faster absorption and lean muscle.')">
             <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 2">
             <div class="product-info">
                 <h4>Whey 2</h4>
@@ -551,7 +613,8 @@
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Whey 3', ['img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp'], 1150, 'Excellent taste and mixability, perfect post-workout.')">
+        <div class="product-card"
+            onclick="openModal('Whey 3', ['img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp'], 1150, 'Excellent taste and mixability, perfect post-workout.')">
             <img src="img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg" alt="Whey 3">
             <div class="product-info">
                 <h4>Whey 3</h4>
@@ -562,7 +625,8 @@
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Whey 4', ['img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp'], 1200, 'Standard Whey protein with added BCAAs.')">
+        <div class="product-card"
+            onclick="openModal('Whey 4', ['img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp'], 1200, 'Standard Whey protein with added BCAAs.')">
             <img src="img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 4">
             <div class="product-info">
                 <h4>Whey 4</h4>
@@ -573,7 +637,8 @@
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Whey 5', ['img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp'], 1250, 'Advanced protein formula for strength gain.')">
+        <div class="product-card"
+            onclick="openModal('Whey 5', ['img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp'], 1250, 'Advanced protein formula for strength gain.')">
             <img src="img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 5">
             <div class="product-info">
                 <h4>Whey 5</h4>
@@ -584,7 +649,8 @@
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Whey 6', ['img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg'], 1300, 'Delicious chocolate flavor with 24g protein per scoop.')">
+        <div class="product-card"
+            onclick="openModal('Whey 6', ['img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg'], 1300, 'Delicious chocolate flavor with 24g protein per scoop.')">
             <img src="img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 6">
             <div class="product-info">
                 <h4>Whey 6</h4>
@@ -595,7 +661,8 @@
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Whey 7', ['img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp'], 1350, 'Hydrolyzed whey for the fastest digestion.')">
+        <div class="product-card"
+            onclick="openModal('Whey 7', ['img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp'], 1350, 'Hydrolyzed whey for the fastest digestion.')">
             <img src="img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 7">
             <div class="product-info">
                 <h4>Whey 7</h4>
@@ -606,7 +673,8 @@
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Whey 8', ['img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp'], 1400, 'Low carb, low fat protein supplement.')">
+        <div class="product-card"
+            onclick="openModal('Whey 8', ['img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp'], 1400, 'Low carb, low fat protein supplement.')">
             <img src="img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg" alt="Whey 8">
             <div class="product-info">
                 <h4>Whey 8</h4>
@@ -617,7 +685,8 @@
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Whey 9', ['img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 1450, 'Natural whey protein with no artificial sweeteners.')">
+        <div class="product-card"
+            onclick="openModal('Whey 9', ['img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 1450, 'Natural whey protein with no artificial sweeteners.')">
             <img src="img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 9">
             <div class="product-info">
                 <h4>Whey 9</h4>
@@ -628,7 +697,8 @@
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Whey 10', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp'], 1500, 'Ultimate muscle building stack replacement.')">
+        <div class="product-card"
+            onclick="openModal('Whey 10', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp'], 1500, 'Ultimate muscle building stack replacement.')">
             <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 10">
             <div class="product-info">
                 <h4>Whey 10</h4>
@@ -716,6 +786,35 @@
         function toggleCart() { let box = document.getElementById("cartBox"); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
         function sendCartWhatsApp() { if (cart.length === 0) { alert("Cart empty"); return; } let msg = "Order:\n"; let total = 0; cart.forEach(c => { msg += `${c.name} ₹${c.total}\n`; total += c.total; }); msg += `Total: ₹${total}`; window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`; }
 
+        // --- Reviews Generation Logic ---
+        function getStarsHtml(rating) {
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) html += '★';
+                else if (i - 0.5 <= rating) html += '☆'; 
+                else html += '☆';
+            }
+            return html;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.product-card').forEach(card => {
+                const rating = (Math.random() * (5 - 4.2) + 4.2).toFixed(1);
+                const reviews = Math.floor(Math.random() * 500) + 50;
+                card.dataset.rating = rating;
+                card.dataset.reviews = reviews;
+
+                const infoDiv = card.querySelector('.product-info');
+                const priceElement = card.querySelector('.price');
+                
+                const starsDiv = document.createElement('div');
+                starsDiv.className = 'stars';
+                starsDiv.innerHTML = getStarsHtml(rating) + `<span class="review-count">(${reviews})</span>`;
+                
+                infoDiv.insertBefore(starsDiv, priceElement);
+            });
+        });
+
         /* --- Modal Logic --- */
         let currentModalProduct = {};
         let modalImages = [];
@@ -729,12 +828,27 @@
             }
             currentImageIndex = 0;
             currentModalProduct = { name, price, desc };
-            
+
             updateModalImage();
 
             document.getElementById("modalName").innerText = name;
             document.getElementById("modalPrice").innerText = "Price: ₹" + price;
             document.getElementById("modalDesc").innerText = desc;
+
+            // Find rating for the modal
+            let rating = "4.5", reviews = "120";
+            document.querySelectorAll('.product-card').forEach(card => {
+                const titleEl = card.querySelector('h4');
+                if (titleEl && titleEl.innerText === name) {
+                    rating = card.dataset.rating || rating;
+                    reviews = card.dataset.reviews || reviews;
+                }
+            });
+
+            document.getElementById("modalRatingStars").innerHTML = getStarsHtml(rating);
+            document.getElementById("modalRatingCount").innerText = `${rating} out of 5 (${reviews} global ratings)`;
+            
+            generateRandomReviews();
 
             // Set button actions
             document.getElementById("modalOrderBtn").onclick = () => orderNow(name, price);
@@ -746,7 +860,7 @@
         function updateModalImage() {
             document.getElementById("modalImg").src = modalImages[currentImageIndex];
             document.getElementById("imageCounter").innerText = `${currentImageIndex + 1} / ${modalImages.length}`;
-            
+
             const displayArrows = modalImages.length > 1 ? 'flex' : 'none';
             document.querySelectorAll('.slider-btn').forEach(btn => btn.style.display = displayArrows);
             document.getElementById("imageCounter").style.display = modalImages.length > 1 ? 'block' : 'none';
@@ -758,6 +872,40 @@
             if (currentImageIndex < 0) currentImageIndex = modalImages.length - 1;
             if (currentImageIndex >= modalImages.length) currentImageIndex = 0;
             updateModalImage();
+        }
+
+        const fakeReviewNames = ["John D.", "Sarah M.", "Alex K.", "Priya S.", "Mike T.", "Emma B."];
+        const fakeReviewTexts = [
+            "Great product! Delivered on time and tastes amazing.",
+            "Mixes really well. Have noticed good results in a few weeks.",
+            "A bit expensive, but the quality is definitely there. Highly recommend.",
+            "Love the texture and flavor. Will buy again.",
+            "Best value for money. Easily digestable and no bloating.",
+            "Genuine product. The packaging was top notch."
+        ];
+
+        function generateRandomReviews() {
+            const container = document.getElementById("modalReviewsList");
+            if (!container) return;
+            container.innerHTML = "";
+            const numReviews = Math.floor(Math.random() * 3) + 2; // 2 to 4 reviews
+            
+            for (let i = 0; i < numReviews; i++) {
+                const name = fakeReviewNames[Math.floor(Math.random() * fakeReviewNames.length)];
+                const text = fakeReviewTexts[Math.floor(Math.random() * fakeReviewTexts.length)];
+                const rating = (Math.random() * (5 - 4) + 4).toFixed(1);
+                
+                const reviewDiv = document.createElement("div");
+                reviewDiv.className = "review-item";
+                reviewDiv.innerHTML = `
+                    <div class="review-user">
+                        <span>${name}</span>
+                        <div class="stars">${getStarsHtml(rating)}</div>
+                    </div>
+                    <p class="review-text">${text}</p>
+                `;
+                container.appendChild(reviewDiv);
+            }
         }
 
         function closeModal() {
@@ -784,12 +932,20 @@
                 <div class="image-counter" id="imageCounter">1 / 1</div>
             </div>
             <h2 id="modalName"></h2>
+            <div class="modal-rating-header">
+                <div class="stars" id="modalRatingStars"></div>
+                <span class="review-count" id="modalRatingCount" style="font-size: 14px;"></span>
+            </div>
             <p id="modalPrice" class="price"></p>
             <p id="modalDesc" class="description" style="margin: 15px 0; color: #555; line-height: 1.6;"></p>
             <div class="modal-buttons">
                 <button id="modalOrderBtn" style="background: #ff9900; border: none; color: black;">Order Now</button>
                 <button id="modalCartBtn" style="background: #f0c14b; border: 1px solid #a88734; color: #111;">Add to
                     Cart</button>
+            </div>
+            <div class="modal-reviews-section">
+                <h3>Top Reviews</h3>
+                <div id="modalReviewsList"></div>
             </div>
         </div>
     </div>

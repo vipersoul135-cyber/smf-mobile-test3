@@ -246,14 +246,83 @@
         button {
             margin: 5px 0;
             background: #f0c14b;
-            color: #111;
-            border: 1px solid #a88734;
-            padding: 8px;
-            border-radius: 5px;
+            .modal-buttons button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
             cursor: pointer;
-            width: 90%;
+            border-radius: 5px;
             font-weight: bold;
-            transition: background 0.2s;
+        }
+
+        .stars {
+            color: #ff9900;
+            font-size: 14px;
+            margin: 5px 0;
+            letter-spacing: 2px;
+        }
+        .review-count {
+            color: #007185;
+            font-size: 12px;
+            text-decoration: none;
+            margin-left: 5px;
+            letter-spacing: normal;
+        }
+        .modal-reviews-section {
+            margin-top: 25px;
+            text-align: left;
+            border-top: 1px solid #ccc;
+            padding-top: 15px;
+        }
+        .modal-reviews-section h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .review-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .review-user {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .review-user .stars {
+            margin: 0;
+            font-size: 12px;
+        }
+        .review-text {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.4;
+            margin: 0;
+        }
+        .modal-rating-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-rating-header .stars {
+            font-size: 18px;
+        }
+    </style>
+        color: #111;
+        border: 1px solid #a88734;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 90%;
+        font-weight: bold;
+        transition: background 0.2s;
         }
 
         button:hover {
@@ -734,6 +803,35 @@
             window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
         }
 
+        // --- Reviews Generation Logic ---
+        function getStarsHtml(rating) {
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) html += '★';
+                else if (i - 0.5 <= rating) html += '☆'; 
+                else html += '☆';
+            }
+            return html;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.product-card').forEach(card => {
+                const rating = (Math.random() * (5 - 4.2) + 4.2).toFixed(1);
+                const reviews = Math.floor(Math.random() * 500) + 50;
+                card.dataset.rating = rating;
+                card.dataset.reviews = reviews;
+
+                const infoDiv = card.querySelector('.product-info');
+                const priceElement = card.querySelector('.price');
+                
+                const starsDiv = document.createElement('div');
+                starsDiv.className = 'stars';
+                starsDiv.innerHTML = getStarsHtml(rating) + `<span class="review-count">(${reviews})</span>`;
+                
+                infoDiv.insertBefore(starsDiv, priceElement);
+            });
+        });
+
         /* --- Modal Logic --- */
         let currentModalProduct = {};
         let modalImages = [];
@@ -753,6 +851,21 @@
             document.getElementById("modalName").innerText = name;
             document.getElementById("modalPrice").innerText = "Price: ₹" + price;
             document.getElementById("modalDesc").innerText = desc;
+
+            // Find rating for the modal
+            let rating = "4.5", reviews = "120";
+            document.querySelectorAll('.product-card').forEach(card => {
+                const titleEl = card.querySelector('h4');
+                if (titleEl && titleEl.innerText === name) {
+                    rating = card.dataset.rating || rating;
+                    reviews = card.dataset.reviews || reviews;
+                }
+            });
+
+            document.getElementById("modalRatingStars").innerHTML = getStarsHtml(rating);
+            document.getElementById("modalRatingCount").innerText = `${rating} out of 5 (${reviews} global ratings)`;
+            
+            generateRandomReviews();
 
             // Set button actions
             document.getElementById("modalOrderBtn").onclick = () => orderNow(name, price);
@@ -776,6 +889,40 @@
             if (currentImageIndex < 0) currentImageIndex = modalImages.length - 1;
             if (currentImageIndex >= modalImages.length) currentImageIndex = 0;
             updateModalImage();
+        }
+
+        const fakeReviewNames = ["John D.", "Sarah M.", "Alex K.", "Priya S.", "Mike T.", "Emma B."];
+        const fakeReviewTexts = [
+            "Great product! Delivered on time and tastes amazing.",
+            "Mixes really well. Have noticed good results in a few weeks.",
+            "A bit expensive, but the quality is definitely there. Highly recommend.",
+            "Love the texture and flavor. Will buy again.",
+            "Best value for money. Easily digestable and no bloating.",
+            "Genuine product. The packaging was top notch."
+        ];
+
+        function generateRandomReviews() {
+            const container = document.getElementById("modalReviewsList");
+            if (!container) return;
+            container.innerHTML = "";
+            const numReviews = Math.floor(Math.random() * 3) + 2; // 2 to 4 reviews
+            
+            for (let i = 0; i < numReviews; i++) {
+                const name = fakeReviewNames[Math.floor(Math.random() * fakeReviewNames.length)];
+                const text = fakeReviewTexts[Math.floor(Math.random() * fakeReviewTexts.length)];
+                const rating = (Math.random() * (5 - 4) + 4).toFixed(1);
+                
+                const reviewDiv = document.createElement("div");
+                reviewDiv.className = "review-item";
+                reviewDiv.innerHTML = `
+                    <div class="review-user">
+                        <span>${name}</span>
+                        <div class="stars">${getStarsHtml(rating)}</div>
+                    </div>
+                    <p class="review-text">${text}</p>
+                `;
+                container.appendChild(reviewDiv);
+            }
         }
 
         function closeModal() {
@@ -802,12 +949,20 @@
                 <div class="image-counter" id="imageCounter">1 / 1</div>
             </div>
             <h2 id="modalName"></h2>
+            <div class="modal-rating-header">
+                <div class="stars" id="modalRatingStars"></div>
+                <span class="review-count" id="modalRatingCount" style="font-size: 14px;"></span>
+            </div>
             <p id="modalPrice" class="price"></p>
             <p id="modalDesc" class="description" style="margin: 15px 0; color: #555; line-height: 1.6;"></p>
             <div class="modal-buttons">
                 <button id="modalOrderBtn" style="background: #ff9900; border: none; color: black;">Order Now</button>
                 <button id="modalCartBtn" style="background: #f0c14b; border: 1px solid #a88734; color: #111;">Add to
                     Cart</button>
+            </div>
+            <div class="modal-reviews-section">
+                <h3>Top Reviews</h3>
+                <div id="modalReviewsList"></div>
             </div>
         </div>
     </div>
