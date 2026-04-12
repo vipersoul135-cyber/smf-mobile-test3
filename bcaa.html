@@ -393,6 +393,59 @@
             object-fit: contain;
             border-radius: 10px;
             margin-bottom: 20px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-image-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-btn:hover {
+            background: #fff;
+            color: #ff9900;
+        }
+
+        .slider-btn.left {
+            left: 10px;
+        }
+
+        .slider-btn.right {
+            right: 10px;
+        }
+
+        .image-counter {
+            position: absolute;
+            bottom: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .close-btn {
@@ -471,7 +524,7 @@
     <div class="grid">
         <!-- Sample Products (Add all 20 similarly) -->
         <div class="product-card"
-            onclick="openModal('Pre 1', 'img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp', 1050, 'Ultra-pure BCAA blend to support muscle recovery and hydration during workouts.')">
+            onclick="openModal('Pre 1', ['img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/61bVq3CCXJL._AC_UL480_FMwebp_QL65_.webp'], 1050, 'Ultra-pure BCAA blend to support muscle recovery and hydration during workouts.')">
             <img src="img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp" alt="Pre 1">
             <div class="product-info">
                 <h4>Pre 1</h4>
@@ -482,7 +535,7 @@
             </div>
         </div>
         <div class="product-card"
-            onclick="openModal('Pre 2', 'img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp', 1100, 'Optimum ratio of BCAAs to preserve lean muscle mass and boost endurance.')">
+            onclick="openModal('Pre 2', ['img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/61ufE-7M9ZL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71-yqH0ibeL._AC_UL480_FMwebp_QL65_.webp'], 1100, 'Optimum ratio of BCAAs to preserve lean muscle mass and boost endurance.')">
             <img src="img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp" alt="Pre 2">
             <div class="product-info">
                 <h4>Pre 2</h4>
@@ -492,7 +545,94 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 2', 1100)">Cart</button>
             </div>
         </div>
-        <!-- Repeat product cards for Pre 3 to Pre 20 -->
+        <div class="product-card"
+            onclick="openModal('Pre 3', ['img/bcca/61bVq3CCXJL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71ADtT6A6DL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71O6JU4okLL._AC_UL480_FMwebp_QL65_.webp'], 1150, 'Enhance muscle repair and decrease muscle soreness.')">
+            <img src="img/bcca/61bVq3CCXJL._AC_UL480_FMwebp_QL65_.webp" alt="Pre 3">
+            <div class="product-info">
+                <h4>Pre 3</h4>
+                <p class="price">₹1150</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 3', 1150)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 3', 1150)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 4', ['img/bcca/61ufE-7M9ZL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp'], 1200, 'Premium BCAA supplement for energy and focus during training.')">
+            <img src="img/bcca/61ufE-7M9ZL._AC_UL480_FMwebp_QL65_.webp" alt="Pre 4">
+            <div class="product-info">
+                <h4>Pre 4</h4>
+                <p class="price">₹1200</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 4', 1200)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 4', 1200)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 5', ['img/bcca/71-yqH0ibeL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/61bVq3CCXJL._AC_UL480_FMwebp_QL65_.webp'], 1250, 'Helps reduce fatigue and build lean muscle effectively.')">
+            <img src="img/bcca/71-yqH0ibeL._AC_UL480_FMwebp_QL65_.webp" alt="Pre 5">
+            <div class="product-info">
+                <h4>Pre 5</h4>
+                <p class="price">₹1250</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 5', 1250)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 5', 1250)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 6', ['img/bcca/71ADtT6A6DL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71O6JU4okLL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_ (1).webp'], 1300, 'Advanced anti-catabolic properties to save your muscles during intense cardio.')">
+            <img src="img/bcca/71ADtT6A6DL._AC_UL480_FMwebp_QL65_.webp" alt="Pre 6">
+            <div class="product-info">
+                <h4>Pre 6</h4>
+                <p class="price">₹1300</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 6', 1300)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 6', 1300)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 7', ['img/bcca/71O6JU4okLL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_ (1).webp', 'img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp'], 1350, 'Refreshing BCAA drink optimized to refuel athletes rapidly.')">
+            <img src="img/bcca/71O6JU4okLL._AC_UL480_FMwebp_QL65_.webp" alt="Pre 7">
+            <div class="product-info">
+                <h4>Pre 7</h4>
+                <p class="price">₹1350</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 7', 1350)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 7', 1350)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 8', ['img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/61ufE-7M9ZL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71-yqH0ibeL._AC_UL480_FMwebp_QL65_.webp'], 1400, 'Delicious formula engineered for rapid absorption and recovery.')">
+            <img src="img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_.webp" alt="Pre 8">
+            <div class="product-info">
+                <h4>Pre 8</h4>
+                <p class="price">₹1400</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 8', 1400)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 8', 1400)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 9', ['img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_ (1).webp', 'img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/61bVq3CCXJL._AC_UL480_FMwebp_QL65_.webp'], 1450, 'Ultimate post-workout recovery stack containing essential amino acids.')">
+            <img src="img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_ (1).webp" alt="Pre 9">
+            <div class="product-info">
+                <h4>Pre 9</h4>
+                <p class="price">₹1450</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 9', 1450)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 9', 1450)">Cart</button>
+            </div>
+        </div>
+        <div class="product-card"
+            onclick="openModal('Pre 10', ['img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71ADtT6A6DL._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_.webp'], 1500, 'Maximize protein synthesis and boost your workout performance.')">
+            <img src="img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp" alt="Pre 10">
+            <div class="product-info">
+                <h4>Pre 10</h4>
+                <p class="price">₹1500</p>
+                <p class="description">Description for BCAA</p>
+                <button onclick="event.stopPropagation(); orderNow('Pre 10', 1500)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Pre 10', 1500)">Cart</button>
+            </div>
+        </div>
     </div>
 
     <!-- CART -->
@@ -596,10 +736,20 @@
 
         /* --- Modal Logic --- */
         let currentModalProduct = {};
+        let modalImages = [];
+        let currentImageIndex = 0;
 
-        function openModal(name, img, price, desc) {
-            currentModalProduct = { name, img, price, desc };
-            document.getElementById("modalImg").src = img;
+        function openModal(name, images, price, desc) {
+            if (Array.isArray(images)) {
+                modalImages = images;
+            } else {
+                modalImages = [images];
+            }
+            currentImageIndex = 0;
+            currentModalProduct = { name, price, desc };
+
+            updateModalImage();
+
             document.getElementById("modalName").innerText = name;
             document.getElementById("modalPrice").innerText = "Price: ₹" + price;
             document.getElementById("modalDesc").innerText = desc;
@@ -609,6 +759,23 @@
             document.getElementById("modalCartBtn").onclick = () => addToCart(name, price);
 
             document.getElementById("productModal").style.display = "block";
+        }
+
+        function updateModalImage() {
+            document.getElementById("modalImg").src = modalImages[currentImageIndex];
+            document.getElementById("imageCounter").innerText = `${currentImageIndex + 1} / ${modalImages.length}`;
+
+            const displayArrows = modalImages.length > 1 ? 'flex' : 'none';
+            document.querySelectorAll('.slider-btn').forEach(btn => btn.style.display = displayArrows);
+            document.getElementById("imageCounter").style.display = modalImages.length > 1 ? 'block' : 'none';
+        }
+
+        function changeImage(direction) {
+            if (modalImages.length <= 1) return;
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) currentImageIndex = modalImages.length - 1;
+            if (currentImageIndex >= modalImages.length) currentImageIndex = 0;
+            updateModalImage();
         }
 
         function closeModal() {
@@ -628,7 +795,12 @@
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" alt="Product Image">
+            <div class="modal-image-container">
+                <button class="slider-btn left" onclick="changeImage(-1)">&#10094;</button>
+                <img id="modalImg" src="" alt="Product Image">
+                <button class="slider-btn right" onclick="changeImage(1)">&#10095;</button>
+                <div class="image-counter" id="imageCounter">1 / 1</div>
+            </div>
             <h2 id="modalName"></h2>
             <p id="modalPrice" class="price"></p>
             <p id="modalDesc" class="description" style="margin: 15px 0; color: #555; line-height: 1.6;"></p>

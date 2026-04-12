@@ -401,6 +401,59 @@
             object-fit: contain;
             border-radius: 10px;
             margin-bottom: 20px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-image-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-btn:hover {
+            background: #fff;
+            color: #ff9900;
+        }
+
+        .slider-btn.left {
+            left: 10px;
+        }
+
+        .slider-btn.right {
+            right: 10px;
+        }
+
+        .image-counter {
+            position: absolute;
+            bottom: 30px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .close-btn {
@@ -447,7 +500,7 @@
 
     <div class="controls-bar">
         <div class="control-group">
-            <span id="productCount" style="font-weight: bold; color: #555;">20 Products found</span>
+            <span id="productCount" style="font-weight: bold; color: #555;">10 Products found</span>
         </div>
         <div class="control-group">
             <button class="icon-btn" onclick="openDrawer()">
@@ -478,9 +531,8 @@
     </div>
 
     <div class="grid">
-        <!-- 20 Product Cards -->
-        <div class="product-card"
-            onclick="openModal('Pre 1', 'img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg', 1050, 'High-intensity pre-workout formula for explosive energy and focus.')">
+        <!-- 10 Product Cards -->
+        <div class="product-card" onclick="openModal('Pre 1', ['img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg', 'img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg', 'img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg'], 1050, 'High-intensity pre-workout formula for explosive energy and focus.')">
             <img src="img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg" alt="Product 1">
             <div class="product-info">
                 <h4>Pre 1</h4>
@@ -490,9 +542,9 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 1',1050)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 2', 'img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg', 1100, 'Advanced pre-workout blend to boost nitric oxide and blood flow.')">
-            <img src="img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg" alt="Product 2">
+        
+        <div class="product-card" onclick="openModal('Pre 2', ['img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg', 'img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg', 'img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg'], 1100, 'Advanced pre-workout blend to boost nitric oxide and blood flow.')">
+            <img src="img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 2">
             <div class="product-info">
                 <h4>Pre 2</h4>
                 <p class="price">₹1100</p>
@@ -501,9 +553,9 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 2',1100)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 3', 'img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg', 1150, 'Maximized performance and endurance for your toughest sessions.')">
-            <img src="img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg" alt="Product 3">
+
+        <div class="product-card" onclick="openModal('Pre 3', ['img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg', 'img/pre/61HtYL9PtoL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/61dJqj553OL._AC_UL480_FMwebp_QL65_.webp'], 1150, 'Maximized performance and endurance for your toughest sessions.')">
+            <img src="img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 3">
             <div class="product-info">
                 <h4>Pre 3</h4>
                 <p class="price">₹1150</p>
@@ -512,9 +564,9 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 3',1150)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 4', 'img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg', 1200, 'Sharp focus and clean energy with no crash.')">
-            <img src="img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 4">
+
+        <div class="product-card" onclick="openModal('Pre 4', ['img/pre/61HtYL9PtoL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/61dJqj553OL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp'], 1200, 'Sharp focus and clean energy with no crash.')">
+            <img src="img/pre/61HtYL9PtoL._AC_UL480_FMwebp_QL65_.webp" alt="Product 4">
             <div class="product-info">
                 <h4>Pre 4</h4>
                 <p class="price">₹1200</p>
@@ -523,9 +575,9 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 4',1200)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 5', 'img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg', 1250, 'Ultimate pump formula for skin-splitting vascularity.')">
-            <img src="img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 5">
+
+        <div class="product-card" onclick="openModal('Pre 5', ['img/pre/61dJqj553OL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp'], 1250, 'Ultimate pump formula for skin-splitting vascularity.')">
+            <img src="img/pre/61dJqj553OL._AC_UL480_FMwebp_QL65_.webp" alt="Product 5">
             <div class="product-info">
                 <h4>Pre 5</h4>
                 <p class="price">₹1250</p>
@@ -534,9 +586,9 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 5',1250)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 6', 'img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg', 1300, 'Potent stimulant blend for extreme training sessions.')">
-            <img src="img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 6">
+
+        <div class="product-card" onclick="openModal('Pre 6', ['img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/71FvZdGl0rL._AC_SX416_CB1169409_QL70_.jpg'], 1300, 'Potent stimulant blend for extreme training sessions.')">
+            <img src="img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp" alt="Product 6">
             <div class="product-info">
                 <h4>Pre 6</h4>
                 <p class="price">₹1300</p>
@@ -545,9 +597,9 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 6',1300)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 7', 'img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg', 1350, 'Clinically dosed ingredients for maximum efficacy.')">
-            <img src="img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 7">
+
+        <div class="product-card" onclick="openModal('Pre 7', ['img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/71FvZdGl0rL._AC_SX416_CB1169409_QL70_.jpg', 'img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp'], 1350, 'Clinically dosed ingredients for maximum efficacy.')">
+            <img src="img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp" alt="Product 7">
             <div class="product-info">
                 <h4>Pre 7</h4>
                 <p class="price">₹1350</p>
@@ -556,9 +608,9 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 7',1350)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 8', 'img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg', 1400, 'Boost your metabolic rate and energy levels.')">
-            <img src="img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 8">
+
+        <div class="product-card" onclick="openModal('Pre 8', ['img/pre/71FvZdGl0rL._AC_SX416_CB1169409_QL70_.jpg', 'img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg'], 1400, 'Boost your metabolic rate and energy levels.')">
+            <img src="img/pre/71FvZdGl0rL._AC_SX416_CB1169409_QL70_.jpg" alt="Product 8">
             <div class="product-info">
                 <h4>Pre 8</h4>
                 <p class="price">₹1400</p>
@@ -567,9 +619,9 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 8',1400)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 9', 'img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg', 1450, 'Enhance cognitive function and mind-muscle connection.')">
-            <img src="img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 9">
+
+        <div class="product-card" onclick="openModal('Pre 9', ['img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp', 'img/pre/6156cRLN7qL._AC_SX644_CB1169409_QL70_.jpg', 'img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg'], 1450, 'Enhance cognitive function and mind-muscle connection.')">
+            <img src="img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp" alt="Product 9">
             <div class="product-info">
                 <h4>Pre 9</h4>
                 <p class="price">₹1450</p>
@@ -578,125 +630,15 @@
                 <button onclick="event.stopPropagation(); addToCart('Pre 9',1450)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 10', 'img/pre/61HtYL9PtoL._AC_UL480_FMwebp_QL65_.webp', 1500, 'Superior endurance and recovery support.')">
-            <img src="img/pre/61HtYL9PtoL._AC_UL480_FMwebp_QL65_.webp" alt="Product 10">
+
+        <div class="product-card" onclick="openModal('Pre 10', ['img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg', 'img/pre/611WGyRMg8L._AC_SX644_CB1169409_QL70_.jpg', 'img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp'], 1500, 'Superior endurance and recovery support.')">
+            <img src="img/pre/61BcVRo63VL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 10">
             <div class="product-info">
                 <h4>Pre 10</h4>
                 <p class="price">₹1500</p>
                 <p class="description">Description for Pre 10</p>
                 <button onclick="event.stopPropagation(); orderNow('Pre 10',1500)">Order</button>
                 <button onclick="event.stopPropagation(); addToCart('Pre 10',1500)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 11', 'img/pre/61dJqj553OL._AC_UL480_FMwebp_QL65_.webp', 1550, 'Gold standard quality for professional athletes.')">
-            <img src="img/pre/61dJqj553OL._AC_UL480_FMwebp_QL65_.webp" alt="Product 11">
-            <div class="product-info">
-                <h4>Pre 11</h4>
-                <p class="price">₹1550</p>
-                <p class="description">Description for Pre 11</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 11',1550)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 11',1550)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 12', 'img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp', 1600, 'Advanced caffeine delivery system for sustained energy.')">
-            <img src="img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp" alt="Product 12">
-            <div class="product-info">
-                <h4>Pre 12</h4>
-                <p class="price">₹1600</p>
-                <p class="description">Description for Pre 12</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 12',1600)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 12',1600)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 13', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 1650, 'Complete pre-workout solution for all fitness levels.')">
-            <img src="img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp" alt="Product 13">
-            <div class="product-info">
-                <h4>Pre 13</h4>
-                <p class="price">₹1650</p>
-                <p class="description">Description for Pre 13</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 13',1650)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 13',1650)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 14', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 1700, 'Optimal electrolyte balance for peak hydration.')">
-            <img src="img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp" alt="Product 14">
-            <div class="product-info">
-                <h4>Pre 14</h4>
-                <p class="price">₹1700</p>
-                <p class="description">Description for Pre 14</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 14',1700)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 14',1700)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 15', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 1750, 'Premium ingredients for muscle endurance and fat loss.')">
-            <img src="img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp" alt="Product 15">
-            <div class="product-info">
-                <h4>Pre 15</h4>
-                <p class="price">₹1750</p>
-                <p class="description">Description for Pre 15</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 15',1750)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 15',1750)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 16', 'img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp', 1800, 'Intense focus and mental clarity for competitive training.')">
-            <img src="img/pre/61z9hG6oAbL._AC_UL480_FMwebp_QL65_.webp" alt="Product 16">
-            <div class="product-info">
-                <h4>Pre 16</h4>
-                <p class="price">₹1800</p>
-                <p class="description">Description for Pre 16</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 16',1800)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 16',1800)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 17', 'img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp', 1850, 'Support ATP production and muscle cell hydration.')">
-            <img src="img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp" alt="Product 17">
-            <div class="product-info">
-                <h4>Pre 17</h4>
-                <p class="price">₹1850</p>
-                <p class="description">Description for Pre 17</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 17',1850)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 17',1850)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 18', 'img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp', 1900, 'Ultimate strength and endurance stack.')">
-            <img src="img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp" alt="Product 18">
-            <div class="product-info">
-                <h4>Pre 18</h4>
-                <p class="price">₹1900</p>
-                <p class="description">Description for Pre 18</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 18',1900)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 18',1900)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 19', 'img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp', 1950, 'Maximized nutrient absorption for better results.')">
-            <img src="img/pre/71pKmHns8IL._AC_UL480_FMwebp_QL65_.webp" alt="Product 19">
-            <div class="product-info">
-                <h4>Pre 19</h4>
-                <p class="price">₹1950</p>
-                <p class="description">Description for Pre 19</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 19',1950)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 19',1950)">Cart</button>
-            </div>
-        </div>
-        <div class="product-card"
-            onclick="openModal('Pre 20', 'img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp', 2000, 'The most comprehensive pre-workout in the market.')">
-            <img src="img/pre/714ASSGWcSL._AC_UL480_FMwebp_QL65_.webp" alt="Product 20">
-            <div class="product-info">
-                <h4>Pre 20</h4>
-                <p class="price">₹2000</p>
-                <p class="description">Description for Pre 20</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 20',2000)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 20',2000)">Cart</button>
             </div>
         </div>
     </div>
@@ -775,15 +717,49 @@
         function sendCartWhatsApp() { if (cart.length === 0) { alert("Cart empty"); return; } let msg = "Order:\n"; let total = 0; cart.forEach(c => { msg += `${c.name} ₹${c.total}\n`; total += c.total; }); msg += `Total: ₹${total}`; window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`; }
 
         /* --- Modal Logic --- */
-        function openModal(name, img, price, desc) {
-            document.getElementById("modalImg").src = img;
+        let currentModalProduct = {};
+        let modalImages = [];
+        let currentImageIndex = 0;
+
+        function openModal(name, images, price, desc) {
+            if (Array.isArray(images)) {
+                modalImages = images;
+            } else {
+                modalImages = [images];
+            }
+            currentImageIndex = 0;
+            currentModalProduct = { name, price, desc };
+            
+            updateModalImage();
+            
             document.getElementById("modalName").innerText = name;
             document.getElementById("modalPrice").innerText = "Price: ₹" + price;
             document.getElementById("modalDesc").innerText = desc;
+            
+            // Set button actions
             document.getElementById("modalOrderBtn").onclick = () => orderNow(name, price);
             document.getElementById("modalCartBtn").onclick = () => addToCart(name, price);
+            
             document.getElementById("productModal").style.display = "block";
         }
+
+        function updateModalImage() {
+            document.getElementById("modalImg").src = modalImages[currentImageIndex];
+            document.getElementById("imageCounter").innerText = `${currentImageIndex + 1} / ${modalImages.length}`;
+            
+            const displayArrows = modalImages.length > 1 ? 'flex' : 'none';
+            document.querySelectorAll('.slider-btn').forEach(btn => btn.style.display = displayArrows);
+            document.getElementById("imageCounter").style.display = modalImages.length > 1 ? 'block' : 'none';
+        }
+
+        function changeImage(direction) {
+            if (modalImages.length <= 1) return;
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) currentImageIndex = modalImages.length - 1;
+            if (currentImageIndex >= modalImages.length) currentImageIndex = 0;
+            updateModalImage();
+        }
+
         function closeModal() { document.getElementById("productModal").style.display = "none"; }
         window.onclick = function(event) { let modal = document.getElementById("productModal"); if (event.target == modal) closeModal(); }
     </script>
@@ -792,7 +768,12 @@
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" alt="Product Image">
+            <div class="modal-image-container">
+                <button class="slider-btn left" onclick="changeImage(-1)">&#10094;</button>
+                <img id="modalImg" src="" alt="Product Image">
+                <button class="slider-btn right" onclick="changeImage(1)">&#10095;</button>
+                <div class="image-counter" id="imageCounter">1 / 1</div>
+            </div>
             <h2 id="modalName"></h2>
             <p id="modalPrice" class="price"></p>
             <p id="modalDesc" class="description" style="margin: 15px 0; color: #555; line-height: 1.6;"></p>

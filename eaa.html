@@ -43,9 +43,23 @@
         }
 
         /* Responsive Grid */
-        @media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 480px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
 
         /* List View Styles */
         .grid.list-view {
@@ -90,7 +104,7 @@
             background: #fff;
             margin: 10px 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .control-group {
@@ -131,7 +145,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             display: none;
             z-index: 1000;
             backdrop-filter: blur(3px);
@@ -144,7 +158,7 @@
             width: 300px;
             height: 100%;
             background: #fff;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
             z-index: 1001;
             transition: right 0.3s ease;
             display: flex;
@@ -266,8 +280,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .modal-content {
@@ -279,13 +298,20 @@
             max-width: 500px;
             text-align: center;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: slideUp 0.3s ease;
         }
 
         @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .modal-content img {
@@ -294,6 +320,59 @@
             object-fit: contain;
             border-radius: 10px;
             margin-bottom: 20px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-image-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-btn:hover {
+            background: #fff;
+            color: #ff9900;
+        }
+
+        .slider-btn.left {
+            left: 10px;
+        }
+
+        .slider-btn.right {
+            right: 10px;
+        }
+
+        .image-counter {
+            position: absolute;
+            bottom: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .close-btn {
@@ -367,40 +446,121 @@
                 <div class="filter-option" onclick="applySort('high-low', this)">Price: High to Low</div>
                 <div class="filter-option" onclick="applySort('name', this)">Name: A to Z</div>
             </div>
-            <button onclick="closeDrawer()" style="width: 100%; margin-top: 20px; background: #232f3e; color: white;">Apply</button>
+            <button onclick="closeDrawer()"
+                style="width: 100%; margin-top: 20px; background: #232f3e; color: white;">Apply</button>
         </div>
     </div>
 
     <div class="grid">
 
         <!-- PRODUCTS -->
-        <div class="product-card" onclick="openModal('Pre 1', 'img/eaa/51qPxZ5iU+L.webp', 1050, 'Enhanced amino acid profile for superior muscle recovery and intra-workout performance.')">
-            <img src="img/eaa/51qPxZ5iU+L.webp">
+        <div class="product-card"
+            onclick="openModal('EAA 1', ['img/eaa/51qPxZ5iU+L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71O9d+P+L9L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71YwCeYQV7L._AC_UL480_FMwebp_QL65_.webp'], 1050, 'Enhanced amino acid profile for superior muscle recovery and intra-workout performance.')">
+            <img src="img/eaa/51qPxZ5iU+L._AC_UL480_FMwebp_QL65_.webp">
             <div class="product-info">
-                <h4>Pre 1</h4>
+                <h4>EAA 1</h4>
                 <p class="price">₹1050</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 1',1050)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 1',1050)">Cart</button>
+                <button onclick="event.stopPropagation(); orderNow('EAA 1',1050)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 1',1050)">Cart</button>
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Pre 2', 'img/eaa/51qPxZ5iU+L.webp', 1100, 'Advanced EAA formula to stimulate protein synthesis and reduce muscle soreness.')">
-            <img src="img/eaa/51qPxZ5iU+L.webp">
+        <div class="product-card"
+            onclick="openModal('EAA 2', ['img/eaa/71O9d+P+L9L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71YwCeYQV7L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71cpqVghsIL._AC_UL480_FMwebp_QL65_.webp'], 1100, 'Advanced EAA formula to stimulate protein synthesis and reduce muscle soreness.')">
+            <img src="img/eaa/71O9d+P+L9L._AC_UL480_FMwebp_QL65_.webp">
             <div class="product-info">
-                <h4>Pre 2</h4>
+                <h4>EAA 2</h4>
                 <p class="price">₹1100</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 2',1100)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 2',1100)">Cart</button>
+                <button onclick="event.stopPropagation(); orderNow('EAA 2',1100)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 2',1100)">Cart</button>
             </div>
         </div>
 
-        <div class="product-card" onclick="openModal('Pre 3', 'img/eaa/51qPxZ5iU+L.webp', 1150, 'Full spectrum essential amino acids for total body health and recovery.')">
-            <img src="img/eaa/51qPxZ5iU+L.webp">
+        <div class="product-card"
+            onclick="openModal('EAA 3', ['img/eaa/71YwCeYQV7L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71cpqVghsIL._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/81O2YEjl-zL._AC_UL480_FMwebp_QL65_.webp'], 1150, 'Full spectrum essential amino acids for total body health and recovery.')">
+            <img src="img/eaa/71YwCeYQV7L._AC_UL480_FMwebp_QL65_.webp">
             <div class="product-info">
-                <h4>Pre 3</h4>
+                <h4>EAA 3</h4>
                 <p class="price">₹1150</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 3',1150)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 3',1150)">Cart</button>
+                <button onclick="event.stopPropagation(); orderNow('EAA 3',1150)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 3',1150)">Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card"
+            onclick="openModal('EAA 4', ['img/eaa/71cpqVghsIL._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/81O2YEjl-zL._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/51qPxZ5iU+L._AC_UL480_FMwebp_QL65_.webp'], 1200, 'Premium EAA blend to support your fitness goals.')">
+            <img src="img/eaa/71cpqVghsIL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>EAA 4</h4>
+                <p class="price">₹1200</p>
+                <button onclick="event.stopPropagation(); orderNow('EAA 4',1200)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 4',1200)">Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card"
+            onclick="openModal('EAA 5', ['img/eaa/81O2YEjl-zL._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/51qPxZ5iU+L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71O9d+P+L9L._AC_UL480_FMwebp_QL65_.webp'], 1250, 'Premium EAA blend to support your fitness goals.')">
+            <img src="img/eaa/81O2YEjl-zL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>EAA 5</h4>
+                <p class="price">₹1250</p>
+                <button onclick="event.stopPropagation(); orderNow('EAA 5',1250)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 5',1250)">Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card"
+            onclick="openModal('EAA 6', ['img/eaa/51qPxZ5iU+L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71cpqVghsIL._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/81O2YEjl-zL._AC_UL480_FMwebp_QL65_.webp'], 1300, 'Premium EAA blend to support your fitness goals.')">
+            <img src="img/eaa/51qPxZ5iU+L._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>EAA 6</h4>
+                <p class="price">₹1300</p>
+                <button onclick="event.stopPropagation(); orderNow('EAA 6',1300)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 6',1300)">Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card"
+            onclick="openModal('EAA 7', ['img/eaa/71O9d+P+L9L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71cpqVghsIL._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71YwCeYQV7L._AC_UL480_FMwebp_QL65_.webp'], 1350, 'Premium EAA blend to support your fitness goals.')">
+            <img src="img/eaa/71O9d+P+L9L._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>EAA 7</h4>
+                <p class="price">₹1350</p>
+                <button onclick="event.stopPropagation(); orderNow('EAA 7',1350)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 7',1350)">Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card"
+            onclick="openModal('EAA 8', ['img/eaa/71YwCeYQV7L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/81O2YEjl-zL._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/51qPxZ5iU+L._AC_UL480_FMwebp_QL65_.webp'], 1400, 'Premium EAA blend to support your fitness goals.')">
+            <img src="img/eaa/71YwCeYQV7L._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>EAA 8</h4>
+                <p class="price">₹1400</p>
+                <button onclick="event.stopPropagation(); orderNow('EAA 8',1400)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 8',1400)">Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card"
+            onclick="openModal('EAA 9', ['img/eaa/71cpqVghsIL._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/51qPxZ5iU+L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71O9d+P+L9L._AC_UL480_FMwebp_QL65_.webp'], 1450, 'Premium EAA blend to support your fitness goals.')">
+            <img src="img/eaa/71cpqVghsIL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>EAA 9</h4>
+                <p class="price">₹1450</p>
+                <button onclick="event.stopPropagation(); orderNow('EAA 9',1450)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 9',1450)">Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card"
+            onclick="openModal('EAA 10', ['img/eaa/81O2YEjl-zL._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71YwCeYQV7L._AC_UL480_FMwebp_QL65_.webp', 'img/eaa/71O9d+P+L9L._AC_UL480_FMwebp_QL65_.webp'], 1500, 'Premium EAA blend to support your fitness goals.')">
+            <img src="img/eaa/81O2YEjl-zL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>EAA 10</h4>
+                <p class="price">₹1500</p>
+                <button onclick="event.stopPropagation(); orderNow('EAA 10',1500)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('EAA 10',1500)">Cart</button>
             </div>
         </div>
 
@@ -417,86 +577,86 @@
     </div>
 
 
-        <script src="https://unpkg.com/lucide@latest"></script>
-        <script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+
+        const whatsappNumber = "917339563621";
+        let cart = [];
+
+        // View Toggle Logic
+        function toggleView() {
+            const grid = document.querySelector('.grid');
+            const btn = document.getElementById('viewToggleBtn');
+            grid.classList.toggle('list-view');
+
+            if (grid.classList.contains('list-view')) {
+                btn.innerHTML = '<i data-lucide="grid"></i> Grid View';
+            } else {
+                btn.innerHTML = '<i data-lucide="list"></i> List View';
+            }
             lucide.createIcons();
+        }
 
-            const whatsappNumber = "917339563621";
-            let cart = [];
+        // Drawer Logic
+        function openDrawer() {
+            document.getElementById('filterDrawer').classList.add('active');
+            document.getElementById('drawerOverlay').style.display = 'block';
+        }
 
-            // View Toggle Logic
-            function toggleView() {
-                const grid = document.querySelector('.grid');
-                const btn = document.getElementById('viewToggleBtn');
-                grid.classList.toggle('list-view');
-                
-                if (grid.classList.contains('list-view')) {
-                    btn.innerHTML = '<i data-lucide="grid"></i> Grid View';
-                } else {
-                    btn.innerHTML = '<i data-lucide="list"></i> List View';
-                }
-                lucide.createIcons();
-            }
+        function closeDrawer() {
+            document.getElementById('filterDrawer').classList.remove('active');
+            document.getElementById('drawerOverlay').style.display = 'none';
+        }
 
-            // Drawer Logic
-            function openDrawer() {
-                document.getElementById('filterDrawer').classList.add('active');
-                document.getElementById('drawerOverlay').style.display = 'block';
-            }
+        // Sorting Logic
+        function applySort(type, el) {
+            // Update active state
+            document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+            if (el) el.classList.add('active');
 
-            function closeDrawer() {
-                document.getElementById('filterDrawer').classList.remove('active');
-                document.getElementById('drawerOverlay').style.display = 'none';
-            }
+            const grid = document.querySelector('.grid');
+            const cards = Array.from(grid.querySelectorAll('.product-card'));
 
-            // Sorting Logic
-            function applySort(type, el) {
-                // Update active state
-                document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
-                if (el) el.classList.add('active');
+            cards.sort((a, b) => {
+                const priceA = parseInt(a.querySelector('.price').innerText.replace('₹', ''));
+                const priceB = parseInt(b.querySelector('.price').innerText.replace('₹', ''));
+                const nameA = a.querySelector('h4').innerText.toLowerCase();
+                const nameB = b.querySelector('h4').innerText.toLowerCase();
 
-                const grid = document.querySelector('.grid');
-                const cards = Array.from(grid.querySelectorAll('.product-card'));
+                if (type === 'low-high') return priceA - priceB;
+                if (type === 'high-low') return priceB - priceA;
+                if (type === 'name') return nameA.localeCompare(nameB);
+                return 0;
+            });
 
-                cards.sort((a, b) => {
-                    const priceA = parseInt(a.querySelector('.price').innerText.replace('₹', ''));
-                    const priceB = parseInt(b.querySelector('.price').innerText.replace('₹', ''));
-                    const nameA = a.querySelector('h4').innerText.toLowerCase();
-                    const nameB = b.querySelector('h4').innerText.toLowerCase();
+            // Clear and re-append
+            cards.forEach(card => grid.appendChild(card));
+            closeDrawer();
+        }
 
-                    if (type === 'low-high') return priceA - priceB;
-                    if (type === 'high-low') return priceB - priceA;
-                    if (type === 'name') return nameA.localeCompare(nameB);
-                    return 0;
-                });
+        function orderNow(name, price) {
+            window.location.href =
+                `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                    'Order:\n' + name + '\nPrice: ₹' + price)}`;
+        }
 
-                // Clear and re-append
-                cards.forEach(card => grid.appendChild(card));
-                closeDrawer();
-            }
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            renderCart();
+        }
 
-            function orderNow(name, price) {
-                window.location.href =
-                    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                        'Order:\n' + name + '\nPrice: ₹' + price)}`;
-            }
-
-            function addToCart(name, price) {
-                cart.push({ name, price });
-                renderCart();
-            }
-
-            function renderCart() {
-                let total = 0;
-                let html = "";
-                cart.forEach((c, i) => {
-                    total += c.price;
-                    html += `${c.name} ₹${c.price} 
+        function renderCart() {
+            let total = 0;
+            let html = "";
+            cart.forEach((c, i) => {
+                total += c.price;
+                html += `${c.name} ₹${c.price} 
             <button onclick="removeItem(${i})">X</button><br>`;
-                });
-                document.getElementById("cartItems").innerHTML = html;
-                document.getElementById("total").innerText = total;
-            }
+            });
+            document.getElementById("cartItems").innerHTML = html;
+            document.getElementById("total").innerText = total;
+        }
 
         function removeItem(i) {
             cart.splice(i, 1);
@@ -527,19 +687,46 @@
 
         /* --- Modal Logic --- */
         let currentModalProduct = {};
+        let modalImages = [];
+        let currentImageIndex = 0;
 
-        function openModal(name, img, price, desc) {
-            currentModalProduct = { name, img, price, desc };
-            document.getElementById("modalImg").src = img;
+        function openModal(name, images, price, desc) {
+            if (Array.isArray(images)) {
+                modalImages = images;
+            } else {
+                modalImages = [images];
+            }
+            currentImageIndex = 0;
+            currentModalProduct = { name, price, desc };
+
+            updateModalImage();
+
             document.getElementById("modalName").innerText = name;
             document.getElementById("modalPrice").innerText = "Price: ₹" + price;
             document.getElementById("modalDesc").innerText = desc;
-            
+
             // Set button actions
             document.getElementById("modalOrderBtn").onclick = () => orderNow(name, price);
             document.getElementById("modalCartBtn").onclick = () => addToCart(name, price);
-            
+
             document.getElementById("productModal").style.display = "block";
+        }
+
+        function updateModalImage() {
+            document.getElementById("modalImg").src = modalImages[currentImageIndex];
+            document.getElementById("imageCounter").innerText = `${currentImageIndex + 1} / ${modalImages.length}`;
+
+            const displayArrows = modalImages.length > 1 ? 'flex' : 'none';
+            document.querySelectorAll('.slider-btn').forEach(btn => btn.style.display = displayArrows);
+            document.getElementById("imageCounter").style.display = modalImages.length > 1 ? 'block' : 'none';
+        }
+
+        function changeImage(direction) {
+            if (modalImages.length <= 1) return;
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) currentImageIndex = modalImages.length - 1;
+            if (currentImageIndex >= modalImages.length) currentImageIndex = 0;
+            updateModalImage();
         }
 
         function closeModal() {
@@ -547,7 +734,7 @@
         }
 
         // Close on click outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             let modal = document.getElementById("productModal");
             if (event.target == modal) {
                 closeModal();
@@ -559,13 +746,19 @@
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" alt="Product Image">
+            <div class="modal-image-container">
+                <button class="slider-btn left" onclick="changeImage(-1)">&#10094;</button>
+                <img id="modalImg" src="" alt="Product Image">
+                <button class="slider-btn right" onclick="changeImage(1)">&#10095;</button>
+                <div class="image-counter" id="imageCounter">1 / 1</div>
+            </div>
             <h2 id="modalName"></h2>
             <p id="modalPrice" class="price"></p>
             <p id="modalDesc" class="description" style="margin: 15px 0; color: #555; line-height: 1.6;"></p>
             <div class="modal-buttons">
                 <button id="modalOrderBtn" style="background: #ff9900; border: none; color: black;">Order Now</button>
-                <button id="modalCartBtn" style="background: #f0c14b; border: 1px solid #a88734; color: #111;">Add to Cart</button>
+                <button id="modalCartBtn" style="background: #f0c14b; border: 1px solid #a88734; color: #111;">Add to
+                    Cart</button>
             </div>
         </div>
     </div>

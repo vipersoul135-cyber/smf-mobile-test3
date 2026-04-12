@@ -401,6 +401,59 @@
             object-fit: contain;
             border-radius: 10px;
             margin-bottom: 20px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-image-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-btn:hover {
+            background: #fff;
+            color: #ff9900;
+        }
+
+        .slider-btn.left {
+            left: 10px;
+        }
+
+        .slider-btn.right {
+            right: 10px;
+        }
+
+        .image-counter {
+            position: absolute;
+            bottom: 30px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .close-btn {
@@ -475,120 +528,116 @@
         </div>
     </div>
     <div class="grid">
-        <!-- 20 Product Cards -->
-        <!-- You can change image src, name, price, description -->
-        <div class="product-card"
-            onclick="openModal('Pre 1', 'img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp', 1050, 'High quality Whey Protein to support muscle growth and recovery.')">
-            <img src="img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp" alt="Product 1">
+        <!-- 10 Product Cards -->
+        <div class="product-card" onclick="openModal('Whey 1', ['img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 1050, 'High quality Whey Protein to support muscle growth and recovery.')">
+            <img src="img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 1">
             <div class="product-info">
-                <h4>Pre 1</h4>
+                <h4>Whey 1</h4>
                 <p class="price">₹1050</p>
-                <p class="description">Description for Whey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 1', 1050)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 1', 1050)">Cart</button>
+                <p class="description">Description for Whey 1</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 1', 1050)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 1', 1050)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 2', 'img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp', 1100, 'Premium Whey isolate for faster absorption and lean muscle.')">
-            <img src="img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp" alt="Product 2">
+
+        <div class="product-card" onclick="openModal('Whey 2', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp'], 1100, 'Premium Whey isolate for faster absorption and lean muscle.')">
+            <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 2">
             <div class="product-info">
-                <h4>Pre 2</h4>
+                <h4>Whey 2</h4>
                 <p class="price">₹1100</p>
-                <p class="description">Description for Whey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 2', 1100)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 2', 1100)">Cart</button>
+                <p class="description">Description for Whey 2</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 2', 1100)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 2', 1100)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 3', 'img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp', 1150, 'Excellent taste and mixability, perfect post-workout.')">
-            <img src="img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp" alt="Product 3">
+
+        <div class="product-card" onclick="openModal('Whey 3', ['img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp'], 1150, 'Excellent taste and mixability, perfect post-workout.')">
+            <img src="img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg" alt="Whey 3">
             <div class="product-info">
-                <h4>Pre 3</h4>
+                <h4>Whey 3</h4>
                 <p class="price">₹1150</p>
-                <p class="description">Description for Whey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 3', 1150)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 3', 1150)">Cart</button>
+                <p class="description">Description for Whey 3</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 3', 1150)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 3', 1150)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 4', 'img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp', 1200, 'Standard Whey protein with added BCAAs.')">
-            <img src="img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp" alt="Product 4">
+
+        <div class="product-card" onclick="openModal('Whey 4', ['img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp'], 1200, 'Standard Whey protein with added BCAAs.')">
+            <img src="img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 4">
             <div class="product-info">
-                <h4>Pre 4</h4>
+                <h4>Whey 4</h4>
                 <p class="price">₹1200</p>
-                <p class="description">Description forWhey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 4', 1200)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 4', 1200)">Cart</button>
+                <p class="description">Description for Whey 4</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 4', 1200)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 4', 1200)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 5', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 1250, 'Advanced protein formula for strength gain.')">
-            <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp" alt="Product 5">
+
+        <div class="product-card" onclick="openModal('Whey 5', ['img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp'], 1250, 'Advanced protein formula for strength gain.')">
+            <img src="img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 5">
             <div class="product-info">
-                <h4>Pre 5</h4>
+                <h4>Whey 5</h4>
                 <p class="price">₹1250</p>
-                <p class="description">Description for Whey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 5', 1250)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 5', 1250)">Cart</button>
+                <p class="description">Description for Whey 5</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 5', 1250)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 5', 1250)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 6', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 1300, 'Delicious chocolate flavor with 24g protein per scoop.')">
-            <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp" alt="Product 6">
+
+        <div class="product-card" onclick="openModal('Whey 6', ['img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg'], 1300, 'Delicious chocolate flavor with 24g protein per scoop.')">
+            <img src="img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 6">
             <div class="product-info">
-                <h4>Pre 6</h4>
+                <h4>Whey 6</h4>
                 <p class="price">₹1300</p>
-                <p class="description">Description for Whey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 6', 1300)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 6', 1300)">Cart</button>
+                <p class="description">Description for Whey 6</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 6', 1300)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 6', 1300)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 7', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 1350, 'Hydrolyzed whey for the fastest digestion.')">
-            <img src="img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg" alt="Product 7">
+
+        <div class="product-card" onclick="openModal('Whey 7', ['img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp'], 1350, 'Hydrolyzed whey for the fastest digestion.')">
+            <img src="img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 7">
             <div class="product-info">
-                <h4>Pre 7</h4>
+                <h4>Whey 7</h4>
                 <p class="price">₹1350</p>
-                <p class="description">Description for Whey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 7', 1350)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 7', 1350)">Cart</button>
+                <p class="description">Description for Whey 7</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 7', 1350)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 7', 1350)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 8', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 1400, 'Low carb, low fat protein supplement.')">
-            <img src="img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp" alt="Product 8">
+
+        <div class="product-card" onclick="openModal('Whey 8', ['img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp'], 1400, 'Low carb, low fat protein supplement.')">
+            <img src="img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg" alt="Whey 8">
             <div class="product-info">
-                <h4>Pre 8</h4>
+                <h4>Whey 8</h4>
                 <p class="price">₹1400</p>
-                <p class="description">Description for Whey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 8', 1400)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 8', 1400)">Cart</button>
+                <p class="description">Description for Whey 8</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 8', 1400)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 8', 1400)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 9', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 1450, 'Natural whey protein with no artificial sweeteners.')">
-            <img src="img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp" alt="Product 9">
+
+        <div class="product-card" onclick="openModal('Whey 9', ['img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 1450, 'Natural whey protein with no artificial sweeteners.')">
+            <img src="img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 9">
             <div class="product-info">
-                <h4>Pre 9</h4>
+                <h4>Whey 9</h4>
                 <p class="price">₹1450</p>
-                <p class="description">Description for Whey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 9', 1450)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 9', 1450)">Cart</button>
+                <p class="description">Description for Whey 9</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 9', 1450)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 9', 1450)">Cart</button>
             </div>
         </div>
-        <div class="product-card"
-            onclick="openModal('Pre 10', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 1500, 'Ultimate muscle building stack replacement.')">
-            <img src="img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp" alt="Product 10">
+
+        <div class="product-card" onclick="openModal('Whey 10', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp'], 1500, 'Ultimate muscle building stack replacement.')">
+            <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 10">
             <div class="product-info">
-                <h4>Pre 10</h4>
+                <h4>Whey 10</h4>
                 <p class="price">₹1500</p>
-                <p class="description">Description for Whey</p>
-                <button onclick="event.stopPropagation(); orderNow('Pre 10', 1500)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Pre 10', 1500)">Cart</button>
+                <p class="description">Description for Whey 10</p>
+                <button onclick="event.stopPropagation(); orderNow('Whey 10', 1500)">Order</button>
+                <button onclick="event.stopPropagation(); addToCart('Whey 10', 1500)">Cart</button>
             </div>
         </div>
-    </div>
-    </div>
 
     </div>
 
@@ -669,10 +718,20 @@
 
         /* --- Modal Logic --- */
         let currentModalProduct = {};
+        let modalImages = [];
+        let currentImageIndex = 0;
 
-        function openModal(name, img, price, desc) {
-            currentModalProduct = { name, img, price, desc };
-            document.getElementById("modalImg").src = img;
+        function openModal(name, images, price, desc) {
+            if (Array.isArray(images)) {
+                modalImages = images;
+            } else {
+                modalImages = [images];
+            }
+            currentImageIndex = 0;
+            currentModalProduct = { name, price, desc };
+            
+            updateModalImage();
+
             document.getElementById("modalName").innerText = name;
             document.getElementById("modalPrice").innerText = "Price: ₹" + price;
             document.getElementById("modalDesc").innerText = desc;
@@ -682,6 +741,23 @@
             document.getElementById("modalCartBtn").onclick = () => addToCart(name, price);
 
             document.getElementById("productModal").style.display = "block";
+        }
+
+        function updateModalImage() {
+            document.getElementById("modalImg").src = modalImages[currentImageIndex];
+            document.getElementById("imageCounter").innerText = `${currentImageIndex + 1} / ${modalImages.length}`;
+            
+            const displayArrows = modalImages.length > 1 ? 'flex' : 'none';
+            document.querySelectorAll('.slider-btn').forEach(btn => btn.style.display = displayArrows);
+            document.getElementById("imageCounter").style.display = modalImages.length > 1 ? 'block' : 'none';
+        }
+
+        function changeImage(direction) {
+            if (modalImages.length <= 1) return;
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) currentImageIndex = modalImages.length - 1;
+            if (currentImageIndex >= modalImages.length) currentImageIndex = 0;
+            updateModalImage();
         }
 
         function closeModal() {
@@ -701,7 +777,12 @@
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" alt="Product Image">
+            <div class="modal-image-container">
+                <button class="slider-btn left" onclick="changeImage(-1)">&#10094;</button>
+                <img id="modalImg" src="" alt="Product Image">
+                <button class="slider-btn right" onclick="changeImage(1)">&#10095;</button>
+                <div class="image-counter" id="imageCounter">1 / 1</div>
+            </div>
             <h2 id="modalName"></h2>
             <p id="modalPrice" class="price"></p>
             <p id="modalDesc" class="description" style="margin: 15px 0; color: #555; line-height: 1.6;"></p>
