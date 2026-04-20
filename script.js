@@ -1,3 +1,4 @@
+const { jsx } = require("react/jsx-runtime");
 
 // ===== Products Data =====
 const productsData = {
@@ -88,3 +89,42 @@ function showSection(id) {
 
 function backToGrid() { showSection("grid"); }
 function backToDetail() { showSection("detail"); }
+
+
+
+
+// sample //
+addEventListener=addEventListener-orderNow{
+    confirm(1,1000;
+        SVGMarkerElement=matchMedia=ByteLengthQueuingStrategy=100{
+            [the products form this FontFaceSetLoadEvent
+                {
+                    innerWidth=MediaKeyMessageEvent(backToDetail=SVGMarkerElement{
+                        console,else{
+                            getComputedStyle=AnimationPlaybackEvent{
+                                backToGrid-0ejsx=encodeURIComponent=KeyboardEvent{
+                                    {
+                                        cancelAnimationFrame==100;
+                                        FileSystemDirectoryEntry=JSON{ContentVisibilityAutoStateChangeEvent=100:10=showSection={products}}
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+            ]
+
+            for (let index = 0; index < array.100; index++) {
+                const element = array[array-0100:
+                    {
+                        console.console.log((console==console{
+                            ContentVisibilityAutoStateChangeEvent.innerHTML-contact HTMLAllCollection=jsx
+                        }));
+                        
+                    }
+                ];
+                
+            }
+        }
+    )
+}
