@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us - SMF Gym</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     /* General Setup */
     body {
@@ -334,8 +336,9 @@
         <p>Check out our progress and client results on Social Media.</p>
         <!-- Reuse the styling for social from their main app optionally, or just text here -->
         <div style="display: flex; gap: 15px; margin-top: 10px;">
-          <a href="#" style="color:#ff9900; font-weight: bold;">Instagram</a>
-          <a href="#" style="color:#ff9900; font-weight: bold;">Facebook</a>
+          <a href="https://www.instagram.com/sri_murali_fitness_smf/" target="_blank"
+            style="color:#ff9900; font-weight: bold;">Instagram</a>
+          <a href="https://wa.me/917339563621" target="_blank" style="color:#ff9900; font-weight: bold;">WhatsApp</a>
         </div>
       </div>
     </div>
@@ -355,6 +358,13 @@
       document.getElementById("dev-info").classList.toggle("active");
     }
   </script>
+  <!-- Floating Cart Button -->
+  <div class="floating-cart" onclick="location.href='cart.html'">
+    <i data-lucide="shopping-cart"></i>
+    <div class="cart-badge" id="cartBadge">0</div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 
 </html>

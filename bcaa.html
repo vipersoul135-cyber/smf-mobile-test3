@@ -1,183 +1,146 @@
-import React, { useState, useEffect } from "react";
-import "./BCAAProducts.css";
+<!DOCTYPE html>
+<html lang="en">
 
-const whatsappNumber = "917339563621";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCAA - SMF Gym</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
 
-const productsData = [
-{
-name: "Pre 1",
-price: 1050,
-desc: "Ultra-pure BCAA blend to support muscle recovery.",
-images: [
-"img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp",
-"img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp"
-]
-},
-{
-name: "Pre 2",
-price: 1100,
-desc: "Boost endurance and preserve lean muscle.",
-images: [
-"img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp",
-"img/bcca/61ufE-7M9ZL._AC_UL480_FMwebp_QL65_.webp"
-]
-}
-// 👉 add remaining products SAME WAY (no UI change)
-];
-
-export default function BCAAProducts() {
-const [products, setProducts] = useState(productsData);
-const [cart, setCart] = useState([]);
-const [listView, setListView] = useState(false);
-const [showCart, setShowCart] = useState(false);
-const [modal, setModal] = useState(null);
-const [imageIndex, setImageIndex] = useState(0);
-
-// ⭐ Add random ratings
-useEffect(() => {
-const updated = products.map(p => ({
-...p,
-rating: (Math.random() * (5 - 4.2) + 4.2).toFixed(1),
-reviews: Math.floor(Math.random() * 500) + 50
-}));
-setProducts(updated);
-}, []);
-
-const toggleView = () => setListView(!listView);
-
-const addToCart = (p) => {
-setCart([...cart, p]);
-};
-
-const removeItem = (i) => {
-const newCart = [...cart];
-newCart.splice(i, 1);
-setCart(newCart);
-};
-
-const total = cart.reduce((sum, item) => sum + item.price, 0);
-
-const orderNow = (p) => {
-window.location.href =
-`https://wa.me/${whatsappNumber}?text=` +
-encodeURIComponent(`Order:\n${p.name}\nPrice: ₹${p.price}`);
-};
-
-const sendCartWhatsApp = () => {
-if (cart.length === 0) return alert("Cart empty");
-
-let msg = "Order:\n";
-cart.forEach(c => (msg += `${c.name} ₹${c.price}\n`));
-msg += `Total: ₹${total}`;
-
-window.location.href =
-`https://wa.me/${whatsappNumber}?text=` +
-encodeURIComponent(msg);
-};
-
-const applySort = (type) => {
-let sorted = [...products];
-
-if (type === "low-high") sorted.sort((a, b) => a.price - b.price);
-if (type === "high-low") sorted.sort((a, b) => b.price - a.price);
-if (type === "name") sorted.sort((a, b) => a.name.localeCompare(b.name));
-
-setProducts(sorted);
-};
-
-return (
-<>
-    {/* NAVBAR */}
-    <div className="navbar">
-        <a href="products.html" className="back-btn">⬅</a>
+<body>
+    <div class="navbar">
+        <a href="products.html" class="back-btn">⬅</a>
         <h2>SMF SUPPLEMENTS</h2>
     </div>
 
-    <h2>BCAA Products</h2>
+    <h2 class="page-title">BCAA</h2>
 
-    {/* CONTROLS */}
-    <div className="controls-bar">
-        <span>{products.length} Products found</span>
-
-        <div>
-            <button className="icon-btn" onClick={()=> applySort("low-high")}>
-                Sort
-            </button>
-
-            <button className="icon-btn" onClick={toggleView}>
-                {listView ? "Grid View" : "List View"}
-            </button>
+    <div class="controls-bar">
+        <span style="font-weight: 600; color: #666;">10 Products</span>
+        <div class="view-toggles">
+            <button id="viewToggle" class="toggle-btn" onclick="toggleView()">📋 List View</button>
         </div>
     </div>
 
-    {/* PRODUCTS */}
-    <div className={`grid ${listView ? "list-view" : "" }`}>
-        {products.map((p, i) => (
-        <div key={i} className="product-card" onClick={()=> {
-            setModal(p);
-            setImageIndex(0);
-            }}
-            >
-            <img src={p.images[0]} alt={p.name} />
-
-            <div className="product-info">
-                <h4>{p.name}</h4>
-
-                <div className="stars">
-                    ★★★★☆ ({p.reviews})
-                </div>
-
-                <p className="price">₹{p.price}</p>
-                <p className="description">{p.desc}</p>
-
-                <button onClick={(e)=> { e.stopPropagation(); orderNow(p); }}>
-                    Order
-                </button>
-
-                <button onClick={(e)=> { e.stopPropagation(); addToCart(p); }}>
-                    Cart
-                </button>
+    <div class="products-container grid-view">
+        <!-- Product 1 -->
+        <div class="product-card" onclick="openProductModal('BCAA 1', ['img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp', 'img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp'], 1050, 'Ultra-pure BCAA blend to support muscle recovery and hydration.')">
+            <img src="img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 1</h4>
+                <p class="price">₹1050</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 1', 1050, 'img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
             </div>
         </div>
-        ))}
-    </div>
 
-    {/* CART */}
-    <div className="cart-btn" onClick={()=> setShowCart(!showCart)}>🛒</div>
-
-    {showCart && (
-    <div className="cart-box">
-        <h3>Cart</h3>
-
-        {cart.map((c, i) => (
-        <div key={i}>
-            {c.name} ₹{c.price}
-            <button onClick={()=> removeItem(i)}>X</button>
+        <div class="product-card" onclick="openProductModal('BCAA 2', ['img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp'], 1100, 'Essential amino acids for peak performance.')">
+            <img src="img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 2</h4>
+                <p class="price">₹1100</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 2', 1100, 'img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
         </div>
-        ))}
 
-        <h4>Total: ₹{total}</h4>
-        <button onClick={sendCartWhatsApp}>Order Cart</button>
-    </div>
-    )}
+        <div class="product-card" onclick="openProductModal('BCAA 3', ['img/bcca/61bVq3CCXJL._AC_UL480_FMwebp_QL65_.webp'], 1150, 'Support your muscles during intense training.')">
+            <img src="img/bcca/61bVq3CCXJL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 3</h4>
+                <p class="price">₹1150</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 3', 1150, 'img/bcca/61bVq3CCXJL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-card" onclick="openProductModal('BCAA 4', ['img/bcca/61ufE-7M9ZL._AC_UL480_FMwebp_QL65_.webp'], 1200, 'Quality BCAA for optimal results.')">
+            <img src="img/bcca/61ufE-7M9ZL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 4</h4>
+                <p class="price">₹1200</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 4', 1200, 'img/bcca/61ufE-7M9ZL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
 
-    {/* MODAL */}
-    {modal && (
-    <div className="modal" onClick={()=> setModal(null)}>
-        <div className="modal-content" onClick={(e)=> e.stopPropagation()}>
-            <span className="close-btn" onClick={()=> setModal(null)}>×</span>
+        <div class="product-card" onclick="openProductModal('BCAA 5', ['img/bcca/71-yqH0ibeL._AC_UL480_FMwebp_QL65_.webp'], 1250, 'Maximum muscle hydration.')">
+            <img src="img/bcca/71-yqH0ibeL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 5</h4>
+                <p class="price">₹1250</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 5', 1250, 'img/bcca/71-yqH0ibeL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
 
-            <img src={modal.images[imageIndex]} alt="" />
+        <div class="product-card" onclick="openProductModal('BCAA 6', ['img/bcca/71ADtT6A6DL._AC_UL480_FMwebp_QL65_.webp'], 1300, 'Recovery support for athletes.')">
+            <img src="img/bcca/71ADtT6A6DL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 6</h4>
+                <p class="price">₹1300</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 6', 1300, 'img/bcca/71ADtT6A6DL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
 
-            <h2>{modal.name}</h2>
-            <p className="price">₹{modal.price}</p>
-            <p>{modal.desc}</p>
+        <div class="product-card" onclick="openProductModal('BCAA 7', ['img/bcca/71O6JU4okLL._AC_UL480_FMwebp_QL65_.webp'], 1350, 'Energy and repair.')">
+            <img src="img/bcca/71O6JU4okLL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 7</h4>
+                <p class="price">₹1350</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 7', 1350, 'img/bcca/71O6JU4okLL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
 
-            <button onClick={()=> orderNow(modal)}>Order Now</button>
-            <button onClick={()=> addToCart(modal)}>Add to Cart</button>
+        <div class="product-card" onclick="openProductModal('BCAA 8', ['img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_.webp'], 1400, 'Great taste and results.')">
+            <img src="img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 8</h4>
+                <p class="price">₹1400</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 8', 1400, 'img/bcca/71lNDCkMdbL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('BCAA 9', ['img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp'], 1450, 'Support your muscles.')">
+            <img src="img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 9</h4>
+                <p class="price">₹1450</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 9', 1450, 'img/bcca/51lMShdqW4L._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('BCAA 10', ['img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp'], 1500, 'Superior BCAA formula.')">
+            <img src="img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>BCAA 10</h4>
+                <p class="price">₹1500</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('BCAA 10', 1500, 'img/bcca/61F6rcDR1ZL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
         </div>
     </div>
-    )}
-</>
-);
-}
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" onclick="location.href='cart.html'">
+        <i data-lucide="shopping-cart"></i>
+        <div class="cart-badge" id="cartBadge">0</div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="slider-container">
+                <button class="slider-btn left" onclick="changeImage(-1)">&#10094;</button>
+                <img id="modalImg" src="" alt="Product Detail">
+                <button class="slider-btn right" onclick="changeImage(1)">&#10095;</button>
+                <div id="imageCounter" style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.5); color:#fff; padding:4px 8px; border-radius:10px; font-size:12px;">1 / 1</div>
+            </div>
+            <h2 id="modalName"></h2>
+            <p id="modalPrice" class="price"></p>
+            <p id="modalDesc" style="margin: 15px 0; color: #555; font-size: 14px;"></p>
+            <button class="btn-add" style="background:#ff9900" onclick="addToCart(currentProduct.name, currentProduct.price, currentProduct.images[0]); closeModal()">Add to Cart</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

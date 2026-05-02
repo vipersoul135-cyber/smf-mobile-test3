@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMF Fitness Products</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             margin: 0;
@@ -154,7 +156,7 @@
 
             <h3>Creatine</h3>
         </div>
-        <div class="category-card" onclick="location.href='pre.html'">
+        <div class="category-card" onclick="location.href='preworkout.html'">
 
             <h3>Pre Workout</h3>
         </div>
@@ -172,6 +174,13 @@
         </div>
     </div>
 
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" onclick="location.href='cart.html'">
+        <i data-lucide="shopping-cart"></i>
+        <div class="cart-badge" id="cartBadge">0</div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>

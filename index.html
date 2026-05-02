@@ -13,6 +13,7 @@
         :root {
             --primary: #ff9900;
             --primary-dark: #cc7a00;
+            --secondary: #232f3e;
             --bg-dark: #757575;
             --nav-bg: rgba(35, 47, 62, 0.95);
             --text-light: #ffffff;
@@ -381,6 +382,42 @@
                 display: none;
             }
         }
+
+        /* Floating Cart Button */
+        .floating-cart {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--secondary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1100;
+            transition: all 0.3s ease;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary);
+            color: black;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
     </style>
 </head>
 
@@ -414,15 +451,30 @@
     </div>
 
     <div class="social-bottom">
-        <a href="#"><img src="img/Social=Instagram,Style=Original (1).svg" alt="Instagram"><span>INSTAGRAM</span></a>
-        <a href="#"><img src="img/Social=Facebook,Style=Original (1).svg" alt="Facebook"><span>FACEBOOK</span></a>
-        <a href="#"><img src="img/Social=WhatsApp,Style=Original (1).svg" alt="WhatsApp"><span>WHATSAPP</span></a>
+        <a href="https://www.instagram.com/sri_murali_fitness_smf/" target="_blank">
+            <img src="img/Social=Instagram,Style=Original (1).svg" alt="Instagram">
+            <span>INSTAGRAM</span></a>
+        <a href="https://www.facebook.com/share/15pZ8wV73r/?mibextid=wwXIfr" target="_blank">
+            <img src="img/Social=Facebook,Style=Original (1).svg" alt="Facebook"><span>FACEBOOK</span></a>
+        <a href="https://wa.me/917339563621" target="_blank">
+            <img src="img/Social=WhatsApp,Style=Original (1).svg" alt="WhatsApp"><span>WHATSAPP</span></a>
     </div>
 
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" onclick="location.href='cart.html'">
+        <i data-lucide="shopping-cart"></i>
+        <div class="cart-badge" id="cartBadge">0</div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
     <script>
-        function Products() { window.location.href = "products.html"; }
         function toggleMenu() {
             document.getElementById("menu").classList.toggle("active");
+        }
+        // Initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
         }
     </script>
 

@@ -4,547 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whey</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #808080;
-            color: #111;
-        }
-
-        h2 {
-            text-align: center;
-            padding: 20px 0;
-            font-size: 28px;
-            color: #111;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        /* Responsive Grid */
-        @media (max-width: 1024px) {
-            .grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* List View Styles */
-        .grid.list-view {
-            display: flex;
-            flex-direction: column;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .grid.list-view .product-card {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            text-align: left;
-            padding: 20px;
-            margin-bottom: 15px;
-        }
-
-        .grid.list-view .product-card img {
-            width: 180px;
-            height: 180px;
-            margin-right: 25px;
-            margin-bottom: 0;
-        }
-
-        .grid.list-view .product-card .product-info {
-            flex: 1;
-        }
-
-        .grid.list-view .product-card button {
-            width: auto;
-            min-width: 120px;
-            margin-right: 10px;
-        }
-
-        /* Controls Bar */
-        .controls-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 25px;
-            background: #fff;
-            margin: 10px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .control-group {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .icon-btn {
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            color: #333;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            transition: all 0.2s;
-            width: auto;
-        }
-
-        .icon-btn:hover {
-            background: #eee;
-            border-color: #bbb;
-        }
-
-        .icon-btn i {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Filter Drawer */
-        .drawer-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            z-index: 1000;
-            backdrop-filter: blur(3px);
-        }
-
-        .drawer {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100%;
-            background: #fff;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
-            z-index: 1001;
-            transition: right 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .drawer.active {
-            right: 0;
-        }
-
-        .drawer-header {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .drawer-content {
-            padding: 20px;
-            flex: 1;
-        }
-
-        .filter-group {
-            margin-bottom: 25px;
-        }
-
-        .filter-group h4 {
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-
-        .filter-option {
-            display: block;
-            padding: 12px;
-            margin-bottom: 8px;
-            background: #f9f9f9;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid transparent;
-        }
-
-        .filter-option:hover {
-            background: #f0f0f0;
-            border-color: #ff9900;
-        }
-
-        .filter-option.active {
-            background: #fff7eb;
-            border-color: #ff9900;
-            color: #ff9900;
-            font-weight: bold;
-        }
-
-        .product-card {
-            background: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
-
-        .product-card h4 {
-            font-size: 18px;
-            margin: 10px 0 5px;
-            color: #111;
-        }
-
-        .price {
-            color: #B12704;
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .description {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        button {
-            margin: 5px 0;
-            background: #f0c14b;
-            color: #111;
-            border: 1px solid #a88734;
-            padding: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 90%;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-
-        button:hover {
-            background: #e2b33c;
-        }
-
-        .cart-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #f0c14b;
-            color: #111;
-            padding: 14px;
-            border-radius: 50%;
-            font-size: 20px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-        }
-
-        .cart-box {
-            position: fixed;
-            bottom: 80px;
-            right: 15px;
-            width: 280px;
-            background: #fff;
-            color: #111;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            font-size: 14px;
-        }
-
-        .cart-box h3 {
-            margin-top: 0;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-        }
-
-        .cart-box button {
-            background: #f0c14b;
-            border: 1px solid #a88734;
-            color: #111;
-            width: 100%;
-            padding: 8px;
-            margin-top: 10px;
-        }
-
-
-        /* Auto-injected Navbar & Back-btn */
-        .navbar {
-            background: #232f3e !important;
-            color: white !important;
-            width: 100% !important;
-            padding: 15px 20px !important;
-            box-sizing: border-box !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: flex-start !important;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important;
-            position: sticky !important;
-            top: 0 !important;
-            z-index: 99 !important;
-            margin: 0 !important;
-        }
-
-        .navbar h2 {
-            margin: 0 !important;
-            font-size: 22px !important;
-            letter-spacing: 1px !important;
-            text-transform: uppercase !important;
-            color: white !important;
-            text-align: left !important;
-            padding: 0 !important;
-        }
-
-        .back-btn {
-            color: #ff9900 !important;
-            text-decoration: none !important;
-            font-size: 24px !important;
-            font-weight: bold !important;
-            margin-right: 15px !important;
-            transition: transform 0.3s !important;
-            display: inline-block !important;
-        }
-
-        .back-btn:hover {
-            transform: scale(1.2) !important;
-            color: white !important;
-        }
-
-        /* --- Full Screen Modal Styles --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            overflow-y: auto;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 25px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-content img {
-            width: 100%;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .modal-image-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            transition: background 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .slider-btn:hover {
-            background: #fff;
-            color: #ff9900;
-        }
-
-        .slider-btn.left {
-            left: 10px;
-        }
-
-        .slider-btn.right {
-            right: 10px;
-        }
-
-        .image-counter {
-            position: absolute;
-            bottom: 30px;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            color: #333;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            line-height: 1;
-        }
-
-        .close-btn:hover {
-            color: #ff9900;
-        }
-
-        .modal-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .modal-buttons button {
-            width: 100%;
-            padding: 12px;
-            font-size: 18px;
-        }
-
-        .stars {
-            color: #ff9900;
-            font-size: 14px;
-            margin: 5px 0;
-            letter-spacing: 2px;
-        }
-        .review-count {
-            color: #007185;
-            font-size: 12px;
-            text-decoration: none;
-            margin-left: 5px;
-            letter-spacing: normal;
-        }
-        .modal-reviews-section {
-            margin-top: 25px;
-            text-align: left;
-            border-top: 1px solid #ccc;
-            padding-top: 15px;
-        }
-        .modal-reviews-section h3 {
-            margin-top: 0;
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-        .review-item {
-            margin-bottom: 15px;
-            padding: 10px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            border-bottom: 1px solid #eee;
-        }
-        .review-user {
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .review-user .stars {
-            margin: 0;
-            font-size: 12px;
-        }
-        .review-text {
-            font-size: 13px;
-            color: #444;
-            line-height: 1.4;
-            margin: 0;
-        }
-        .modal-rating-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .modal-rating-header .stars {
-            font-size: 18px;
-        }
-    </style>
+    <title>Whey Protein - SMF Gym</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
@@ -553,403 +15,132 @@
         <h2>SMF SUPPLEMENTS</h2>
     </div>
 
-    <h2>Whey Products</h2>
+    <h2 class="page-title">Whey Protein</h2>
 
     <div class="controls-bar">
-        <div class="control-group">
-            <span id="productCount" style="font-weight: bold; color: #555;">10 Products found</span>
-        </div>
-        <div class="control-group">
-            <button class="icon-btn" onclick="openDrawer()">
-                <i data-lucide="sliders-horizontal"></i> Filter
-            </button>
-            <button class="icon-btn" id="viewToggleBtn" onclick="toggleView()">
-                <i data-lucide="list"></i> List View
-            </button>
+        <span style="font-weight: 600; color: #666;">10 Products</span>
+        <div class="view-toggles">
+            <button id="viewToggle" class="toggle-btn" onclick="toggleView()">📋 List View</button>
         </div>
     </div>
 
-    <!-- Filter Drawer -->
-    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
-    <div class="drawer" id="filterDrawer">
-        <div class="drawer-header">
-            <h3>Filters & Sorting</h3>
-            <span style="cursor: pointer; font-size: 24px;" onclick="closeDrawer()">&times;</span>
-        </div>
-        <div class="drawer-content">
-            <div class="filter-group">
-                <h4>Sort By</h4>
-                <div class="filter-option" onclick="applySort('low-high', this)">Price: Low to High</div>
-                <div class="filter-option" onclick="applySort('high-low', this)">Price: High to Low</div>
-                <div class="filter-option" onclick="applySort('name', this)">Name: A to Z</div>
+    <div class="products-container grid-view">
+        <!-- Product 1 -->
+        <div class="product-card" onclick="openProductModal('Whey Protein 1', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp'], 2400, 'Premium whey protein isolate for maximum muscle growth.')">
+            <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>Whey Protein 1</h4>
+                <p class="price">₹2400</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 1', 2400, 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
             </div>
-            <button onclick="closeDrawer()"
-                style="width: 100%; margin-top: 20px; background: #232f3e; color: white;">Apply</button>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('Whey Protein 2', ['img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 2450, 'High quality protein blend with delicious taste.')">
+            <img src="img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>Whey Protein 2</h4>
+                <p class="price">₹2450</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 2', 2450, 'img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('Whey Protein 3', ['img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 2500, 'Zero sugar, low fat protein supplement.')">
+            <img src="img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg">
+            <div class="product-info">
+                <h4>Whey Protein 3</h4>
+                <p class="price">₹2500</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 3', 2500, 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg')">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-card" onclick="openProductModal('Whey Protein 4', ['img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp'], 2550, 'Fast digesting protein for post-workout recovery.')">
+            <img src="img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>Whey Protein 4</h4>
+                <p class="price">₹2550</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 4', 2550, 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('Whey Protein 5', ['img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp'], 2600, 'Ultra-filtered whey protein concentrate.')">
+            <img src="img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>Whey Protein 5</h4>
+                <p class="price">₹2600</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 5', 2600, 'img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('Whey Protein 6', ['img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp'], 2650, 'Purest protein source for muscle gain.')">
+            <img src="img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>Whey Protein 6</h4>
+                <p class="price">₹2650</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 6', 2650, 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('Whey Protein 7', ['img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp'], 2700, 'Fuel your muscles with the best.')">
+            <img src="img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>Whey Protein 7</h4>
+                <p class="price">₹2700</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 7', 2700, 'img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('Whey Protein 8', ['img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg'], 2750, 'Protein that works as hard as you do.')">
+            <img src="img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg">
+            <div class="product-info">
+                <h4>Whey Protein 8</h4>
+                <p class="price">₹2750</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 8', 2750, 'img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('Whey Protein 9', ['img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp'], 2800, 'Superior amino acid profile.')">
+            <img src="img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>Whey Protein 9</h4>
+                <p class="price">₹2800</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 9', 2800, 'img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="openProductModal('Whey Protein 10', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp'], 3000, 'Ultimate post-workout formula.')">
+            <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp">
+            <div class="product-info">
+                <h4>Whey Protein 10</h4>
+                <p class="price">₹3000</p>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Whey Protein 10', 3000, 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp')">Add to Cart</button>
+            </div>
         </div>
     </div>
-    <div class="grid">
-        <!-- 10 Product Cards -->
-        <div class="product-card"
-            onclick="openModal('Whey 1', ['img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 1050, 'High quality Whey Protein to support muscle growth and recovery.')">
-            <img src="img/whey/61aknbuYJsL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 1">
-            <div class="product-info">
-                <h4>Whey 1</h4>
-                <p class="price">₹1050</p>
-                <p class="description">Description for Whey 1</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 1', 1050)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 1', 1050)">Cart</button>
-            </div>
-        </div>
 
-        <div class="product-card"
-            onclick="openModal('Whey 2', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp'], 1100, 'Premium Whey isolate for faster absorption and lean muscle.')">
-            <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 2">
-            <div class="product-info">
-                <h4>Whey 2</h4>
-                <p class="price">₹1100</p>
-                <p class="description">Description for Whey 2</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 2', 1100)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 2', 1100)">Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card"
-            onclick="openModal('Whey 3', ['img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp'], 1150, 'Excellent taste and mixability, perfect post-workout.')">
-            <img src="img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg" alt="Whey 3">
-            <div class="product-info">
-                <h4>Whey 3</h4>
-                <p class="price">₹1150</p>
-                <p class="description">Description for Whey 3</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 3', 1150)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 3', 1150)">Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card"
-            onclick="openModal('Whey 4', ['img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp'], 1200, 'Standard Whey protein with added BCAAs.')">
-            <img src="img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 4">
-            <div class="product-info">
-                <h4>Whey 4</h4>
-                <p class="price">₹1200</p>
-                <p class="description">Description for Whey 4</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 4', 1200)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 4', 1200)">Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card"
-            onclick="openModal('Whey 5', ['img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp'], 1250, 'Advanced protein formula for strength gain.')">
-            <img src="img/whey/71VnwikGbSL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 5">
-            <div class="product-info">
-                <h4>Whey 5</h4>
-                <p class="price">₹1250</p>
-                <p class="description">Description for Whey 5</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 5', 1250)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 5', 1250)">Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card"
-            onclick="openModal('Whey 6', ['img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg'], 1300, 'Delicious chocolate flavor with 24g protein per scoop.')">
-            <img src="img/whey/71aaVOEsHLL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 6">
-            <div class="product-info">
-                <h4>Whey 6</h4>
-                <p class="price">₹1300</p>
-                <p class="description">Description for Whey 6</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 6', 1300)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 6', 1300)">Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card"
-            onclick="openModal('Whey 7', ['img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp'], 1350, 'Hydrolyzed whey for the fastest digestion.')">
-            <img src="img/whey/71pVltc07tL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 7">
-            <div class="product-info">
-                <h4>Whey 7</h4>
-                <p class="price">₹1350</p>
-                <p class="description">Description for Whey 7</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 7', 1350)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 7', 1350)">Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card"
-            onclick="openModal('Whey 8', ['img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp'], 1400, 'Low carb, low fat protein supplement.')">
-            <img src="img/whey/71tUN8gOByL._AC_SX644_CB1169409_QL70_.jpg" alt="Whey 8">
-            <div class="product-info">
-                <h4>Whey 8</h4>
-                <p class="price">₹1400</p>
-                <p class="description">Description for Whey 8</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 8', 1400)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 8', 1400)">Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card"
-            onclick="openModal('Whey 9', ['img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg'], 1450, 'Natural whey protein with no artificial sweeteners.')">
-            <img src="img/whey/81+ZiNZWBkL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 9">
-            <div class="product-info">
-                <h4>Whey 9</h4>
-                <p class="price">₹1450</p>
-                <p class="description">Description for Whey 9</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 9', 1450)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 9', 1450)">Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card"
-            onclick="openModal('Whey 10', ['img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp', 'img/whey/710yROu43XL._AC_SX644_CB1169409_QL70_.jpg', 'img/whey/71DnOZ6KEnL._AC_UL480_FMwebp_QL65_.webp'], 1500, 'Ultimate muscle building stack replacement.')">
-            <img src="img/whey/61ENBM9MPoL._AC_UL480_FMwebp_QL65_.webp" alt="Whey 10">
-            <div class="product-info">
-                <h4>Whey 10</h4>
-                <p class="price">₹1500</p>
-                <p class="description">Description for Whey 10</p>
-                <button onclick="event.stopPropagation(); orderNow('Whey 10', 1500)">Order</button>
-                <button onclick="event.stopPropagation(); addToCart('Whey 10', 1500)">Cart</button>
-            </div>
-        </div>
-
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" onclick="location.href='cart.html'">
+        <i data-lucide="shopping-cart"></i>
+        <div class="cart-badge" id="cartBadge">0</div>
     </div>
-
-    <!-- CART -->
-    <div class="cart-btn" onclick="toggleCart()">🛒</div>
-    <div class="cart-box" id="cartBox">
-        <h3>Cart</h3>
-        <div id="cartItems"></div>
-        <h4>Total: ₹<span id="total">0</span></h4>
-        <button onclick="sendCartWhatsApp()">Order Cart</button>
-    </div>
-
-
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        lucide.createIcons();
-
-        const whatsappNumber = "917339563621";
-        let cart = [];
-
-        // View Toggle Logic
-        function toggleView() {
-            const grid = document.querySelector('.grid');
-            const btn = document.getElementById('viewToggleBtn');
-            grid.classList.toggle('list-view');
-
-            if (grid.classList.contains('list-view')) {
-                btn.innerHTML = '<i data-lucide="grid"></i> Grid View';
-            } else {
-                btn.innerHTML = '<i data-lucide="list"></i> List View';
-            }
-            lucide.createIcons();
-        }
-
-        // Drawer Logic
-        function openDrawer() {
-            document.getElementById('filterDrawer').classList.add('active');
-            document.getElementById('drawerOverlay').style.display = 'block';
-        }
-
-        function closeDrawer() {
-            document.getElementById('filterDrawer').classList.remove('active');
-            document.getElementById('drawerOverlay').style.display = 'none';
-        }
-
-        // Sorting Logic
-        function applySort(type, el) {
-            // Update active state
-            document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
-            if (el) el.classList.add('active');
-
-            const grid = document.querySelector('.grid');
-            const cards = Array.from(grid.querySelectorAll('.product-card'));
-
-            cards.sort((a, b) => {
-                const priceA = parseInt(a.querySelector('.price').innerText.replace('₹', ''));
-                const priceB = parseInt(b.querySelector('.price').innerText.replace('₹', ''));
-                const nameA = a.querySelector('h4').innerText.toLowerCase();
-                const nameB = b.querySelector('h4').innerText.toLowerCase();
-
-                if (type === 'low-high') return priceA - priceB;
-                if (type === 'high-low') return priceB - priceA;
-                if (type === 'name') return nameA.localeCompare(nameB);
-                return 0;
-            });
-
-            // Clear and re-append
-            cards.forEach(card => grid.appendChild(card));
-            closeDrawer();
-        }
-
-        function orderNow(name, price) { window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Order:\n' + name + '\nPrice: ₹' + price)}`; }
-        function addToCart(name, price) { cart.push({ name, price, total: price }); renderCart(); }
-        function renderCart() { let total = 0; let html = ""; cart.forEach((c, i) => { total += c.total; html += `${c.name} ₹${c.total} <button onclick="removeItem(${i})">X</button><br>`; }); document.getElementById("cartItems").innerHTML = html; document.getElementById("total").innerText = total; }
-        function removeItem(i) { cart.splice(i, 1); renderCart(); }
-        function toggleCart() { let box = document.getElementById("cartBox"); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
-        function sendCartWhatsApp() { if (cart.length === 0) { alert("Cart empty"); return; } let msg = "Order:\n"; let total = 0; cart.forEach(c => { msg += `${c.name} ₹${c.total}\n`; total += c.total; }); msg += `Total: ₹${total}`; window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`; }
-
-        // --- Reviews Generation Logic ---
-        function getStarsHtml(rating) {
-            let html = '';
-            for (let i = 1; i <= 5; i++) {
-                if (i <= rating) html += '★';
-                else if (i - 0.5 <= rating) html += '☆'; 
-                else html += '☆';
-            }
-            return html;
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('.product-card').forEach(card => {
-                const rating = (Math.random() * (5 - 4.2) + 4.2).toFixed(1);
-                const reviews = Math.floor(Math.random() * 500) + 50;
-                card.dataset.rating = rating;
-                card.dataset.reviews = reviews;
-
-                const infoDiv = card.querySelector('.product-info');
-                const priceElement = card.querySelector('.price');
-                
-                const starsDiv = document.createElement('div');
-                starsDiv.className = 'stars';
-                starsDiv.innerHTML = getStarsHtml(rating) + `<span class="review-count">(${reviews})</span>`;
-                
-                infoDiv.insertBefore(starsDiv, priceElement);
-            });
-        });
-
-        /* --- Modal Logic --- */
-        let currentModalProduct = {};
-        let modalImages = [];
-        let currentImageIndex = 0;
-
-        function openModal(name, images, price, desc) {
-            if (Array.isArray(images)) {
-                modalImages = images;
-            } else {
-                modalImages = [images];
-            }
-            currentImageIndex = 0;
-            currentModalProduct = { name, price, desc };
-
-            updateModalImage();
-
-            document.getElementById("modalName").innerText = name;
-            document.getElementById("modalPrice").innerText = "Price: ₹" + price;
-            document.getElementById("modalDesc").innerText = desc;
-
-            // Find rating for the modal
-            let rating = "4.5", reviews = "120";
-            document.querySelectorAll('.product-card').forEach(card => {
-                const titleEl = card.querySelector('h4');
-                if (titleEl && titleEl.innerText === name) {
-                    rating = card.dataset.rating || rating;
-                    reviews = card.dataset.reviews || reviews;
-                }
-            });
-
-            document.getElementById("modalRatingStars").innerHTML = getStarsHtml(rating);
-            document.getElementById("modalRatingCount").innerText = `${rating} out of 5 (${reviews} global ratings)`;
-            
-            generateRandomReviews();
-
-            // Set button actions
-            document.getElementById("modalOrderBtn").onclick = () => orderNow(name, price);
-            document.getElementById("modalCartBtn").onclick = () => addToCart(name, price);
-
-            document.getElementById("productModal").style.display = "block";
-        }
-
-        function updateModalImage() {
-            document.getElementById("modalImg").src = modalImages[currentImageIndex];
-            document.getElementById("imageCounter").innerText = `${currentImageIndex + 1} / ${modalImages.length}`;
-
-            const displayArrows = modalImages.length > 1 ? 'flex' : 'none';
-            document.querySelectorAll('.slider-btn').forEach(btn => btn.style.display = displayArrows);
-            document.getElementById("imageCounter").style.display = modalImages.length > 1 ? 'block' : 'none';
-        }
-
-        function changeImage(direction) {
-            if (modalImages.length <= 1) return;
-            currentImageIndex += direction;
-            if (currentImageIndex < 0) currentImageIndex = modalImages.length - 1;
-            if (currentImageIndex >= modalImages.length) currentImageIndex = 0;
-            updateModalImage();
-        }
-
-        const fakeReviewNames = ["John D.", "Sarah M.", "Alex K.", "Priya S.", "Mike T.", "Emma B."];
-        const fakeReviewTexts = [
-            "Great product! Delivered on time and tastes amazing.",
-            "Mixes really well. Have noticed good results in a few weeks.",
-            "A bit expensive, but the quality is definitely there. Highly recommend.",
-            "Love the texture and flavor. Will buy again.",
-            "Best value for money. Easily digestable and no bloating.",
-            "Genuine product. The packaging was top notch."
-        ];
-
-        function generateRandomReviews() {
-            const container = document.getElementById("modalReviewsList");
-            if (!container) return;
-            container.innerHTML = "";
-            const numReviews = Math.floor(Math.random() * 3) + 2; // 2 to 4 reviews
-            
-            for (let i = 0; i < numReviews; i++) {
-                const name = fakeReviewNames[Math.floor(Math.random() * fakeReviewNames.length)];
-                const text = fakeReviewTexts[Math.floor(Math.random() * fakeReviewTexts.length)];
-                const rating = (Math.random() * (5 - 4) + 4).toFixed(1);
-                
-                const reviewDiv = document.createElement("div");
-                reviewDiv.className = "review-item";
-                reviewDiv.innerHTML = `
-                    <div class="review-user">
-                        <span>${name}</span>
-                        <div class="stars">${getStarsHtml(rating)}</div>
-                    </div>
-                    <p class="review-text">${text}</p>
-                `;
-                container.appendChild(reviewDiv);
-            }
-        }
-
-        function closeModal() {
-            document.getElementById("productModal").style.display = "none";
-        }
-
-        // Close on click outside
-        window.onclick = function (event) {
-            let modal = document.getElementById("productModal");
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-    </script>
 
     <!-- Product Modal -->
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="modal-image-container">
+            <div class="slider-container">
                 <button class="slider-btn left" onclick="changeImage(-1)">&#10094;</button>
-                <img id="modalImg" src="" alt="Product Image">
+                <img id="modalImg" src="" alt="Product Detail">
                 <button class="slider-btn right" onclick="changeImage(1)">&#10095;</button>
-                <div class="image-counter" id="imageCounter">1 / 1</div>
+                <div id="imageCounter" style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.5); color:#fff; padding:4px 8px; border-radius:10px; font-size:12px;">1 / 1</div>
             </div>
             <h2 id="modalName"></h2>
-            <div class="modal-rating-header">
-                <div class="stars" id="modalRatingStars"></div>
-                <span class="review-count" id="modalRatingCount" style="font-size: 14px;"></span>
-            </div>
             <p id="modalPrice" class="price"></p>
-            <p id="modalDesc" class="description" style="margin: 15px 0; color: #555; line-height: 1.6;"></p>
-            <div class="modal-buttons">
-                <button id="modalOrderBtn" style="background: #ff9900; border: none; color: black;">Order Now</button>
-                <button id="modalCartBtn" style="background: #f0c14b; border: 1px solid #a88734; color: #111;">Add to
-                    Cart</button>
-            </div>
-            <div class="modal-reviews-section">
-                <h3>Top Reviews</h3>
-                <div id="modalReviewsList"></div>
-            </div>
+            <p id="modalDesc" style="margin: 15px 0; color: #555; font-size: 14px;"></p>
+            <button class="btn-add" style="background:#ff9900" onclick="addToCart(currentProduct.name, currentProduct.price, currentProduct.images[0]); closeModal()">Add to Cart</button>
         </div>
     </div>
 
+    <script src="script.js"></script>
 </body>
 
 </html>
